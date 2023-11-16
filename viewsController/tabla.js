@@ -59,11 +59,17 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 tr.setAttribute('value', response.data.Dregistros[i].DNI);
                 var tdNombre = document.createElement('td');
                 var tdDepartamento = document.createElement('td');
+                var tdDireccion = document.createElement('td');
+                var tdLocalidad = document.createElement('td');
+                var tdProvincia = document.createElement('td');
                 var tdButtonEditar = document.createElement('td');
                 var tdButtonEliminar = document.createElement('td');
             
                 tdNombre.textContent = response.data.Dregistros[i].NOMBRE;
                 tdDepartamento.textContent = response.data.Dregistros[i].ID_DEPARTAMENTO;
+                tdDireccion.textContent = response.data.Dregistros[i].DIRECCION;
+                tdLocalidad.textContent = response.data.Dregistros[i].LOCALIDAD;
+                tdProvincia.textContent = response.data.Dregistros[i].PROVINCIA;
             
                 var editarButton = document.createElement('button');
                 var editarIcon = document.createElement('i');
@@ -91,8 +97,12 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
             
                 tr.appendChild(tdNombre);
                 tr.appendChild(tdDepartamento);
+                tr.appendChild(tdDireccion);
+                tr.appendChild(tdLocalidad);
+                tr.appendChild(tdProvincia);
                 tr.appendChild(tdButtonEditar);
                 tr.appendChild(tdButtonEliminar);
+
             
                 table.appendChild(tr);
             }
