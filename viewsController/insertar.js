@@ -58,16 +58,9 @@ function obtenerInputValue3() {
     return document.getElementById('codigo_departamento').value;
 }
 
-function validarDatos() {
-    var dni = document.getElementById('dni').value;
-    var nombre = document.getElementById('nombre').value;
-    var codigoDepartamento = document.getElementById('codigo_departamento').value;
+function validarDatos(dni, nombre, dpto) {
 
-    console.log(dni);
-    console.log(nombre);
-    console.log(codigoDepartamento);
-
-    if (dni.trim() === '' || nombre.trim() === '' || codigoDepartamento.trim() === '') {
+    if (dni.trim() === '' || nombre.trim() === '' || dpto.trim() === '') {
         alert('Por favor, complete todos los campos antes de enviar el formulario.');
     } else {
         insertar(dni, nombre, codigoDepartamento);
