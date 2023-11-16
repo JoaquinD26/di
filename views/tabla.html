@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../viewsController/tabla.js"></script>
+    <script type="text/javascript" src="../viewsController/eliminar.js"></script>
+    <script type="text/javascript" src="../viewsController/modificar.js"></script>
+    <script type="text/javascript" src="../viewsController/login.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="../views/tabla.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Tabla y Búsqueda</title>
+
+</head>
+
+<body onload="entablar('primera', '', '', 1)" class="container">
+
+    <h2>Filtrar por...</h2>
+
+    <input oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder())" type="text" id="myInput"
+        placeholder="Nombre o código" value=""/>
+    <input oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder())" type="text" id="myInput2"
+        placeholder="Nombre2 o código2" value=""/>
+    <button id="borrarFiltrosButton" onclick="borrarFiltros()">Borrar filtros</button>
+    <button id="insertar" onclick="window.location.replace('../views/formularioI.html')"> <i class="fas fa-plus"></i> Añadir</button>
+    <button onclick="cerrarSesion()">Cerrar Sesión</button>
+    
+    <br><br>
+
+    <table id="myTable">
+        <tr>
+            <th>Profesor</th>
+            <th>Departamento</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </table>
+
+    <br><br>
+
+    <div id="pagination">
+        <button id="primera" onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), '', obtenerPlaceholder())">
+            &lt;&lt;
+        </button>
+        <button id="anterior"
+            onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), parseInt(obtenerPlaceholder()), obtenerPlaceholder())">
+            &lt;
+        </button>
+
+        <!-- Indicador de la página actual y cuadro de entrada para ir a una página específica -->
+        <input type="text" id="InputPage" placeholder="1" onkeydown="return soloNumeros(event)"
+            oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), this.value, obtenerPlaceholder())" />
+        <!-- Enlaces para navegar a la página siguiente y a la última página -->
+        <button id="siguiente"
+            onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), parseInt(obtenerPlaceholder()), obtenerPlaceholder())">
+            &gt;
+        </button>
+        <button id="ultima" onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), '', obtenerPlaceholder())">
+            &gt;&gt;
+        </button>
+    </div>
+
+
+    <div id="infoBox"></div>
+</body>
+
+</html>

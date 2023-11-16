@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <link rel="stylesheet" type="text/css" href="../views/formulario.css">
+    <script type="text/javascript" src="../viewsController/insertar.js"></script>
+    <script type="text/javascript" src="../viewsController/tabla.js"></script>
+    <script type="text/javascript" src="../viewsController/login.js"></script>
+
+    <title>Formulario</title>
+</head>
+<body onload="cargarPagina()">
+    <h2>Insertar</h2>
+    <form>
+        <input type="text" id="dni" name="dni" placeholder="DNI"><br>
+
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre"><br>
+
+
+        <input type="text" id="codigo_departamento" name="codigo_departamento" placeholder="C&oacute;digo de Departamento"><br><br>
+
+        <button id="insert" type="button" onclick="validarDatos()">Insertar</button><br><br>
+        <button id="cancel" type="button" onclick="window.location.replace('../views/tabla.html')">Cancelar</button>
+    </form>
+</body>
+</html>

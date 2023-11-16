@@ -1,0 +1,157 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5; /* Fondo suave */
+    padding: 8px;
+    font-size: 14px;
+    color: #333; /* Texto principal */
+}
+
+h2 {
+    color: #333; /* Texto principal para los encabezados */
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ddd; /* Borde suave */
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+#InputPage {
+    text-align: center;
+    cursor: pointer;
+    width: 40px;
+}
+
+#InputPage:focus {
+    border: 2px solid #4CAF50; /* Verde suave para el foco */
+    outline: none;
+    caret-color: transparent;
+}
+
+#InputPage:focus::placeholder {
+    color: transparent;
+}
+
+button {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 8px;
+    background-color: #4CAF50; /* Verde suave para los botones */
+    color: #fff;
+    border: none;
+}
+
+button:hover {
+    background-color: #00a508; /* Verde ligeramente más oscuro al pasar el mouse */
+  }
+
+table button#eliminar{
+    background-color: #e53935; /* Rojo suave para los botones de eliminación */
+}
+
+table button#eliminar:hover {
+    background-color: #e90400; /* Verde ligeramente más oscuro al pasar el mouse */
+  }
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    border: 1px solid #ddd; /* Borde suave para las celdas */
+    text-align: center;
+}
+
+th {
+    background-color: #333; /* Texto principal para los encabezados de tabla */
+    color: #fff;
+}
+
+th:nth-last-of-type(1),
+th:nth-last-of-type(2) {
+    width: 12.1%; /* Ajusta el ancho según tus necesidades */
+}
+
+td:nth-last-of-type(1) button,
+td:nth-last-of-type(2) button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#pagination {
+    text-align: center;
+    cursor: pointer;
+    position: fixed;
+    background: #f5f5f5; /* Fondo suave para la paginación */
+    bottom: 1px;
+    left: 22px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#pagination button,
+#pagination input {
+    margin: 0 4px;
+}
+
+#pagination button {
+    padding: 10px 14px;
+    background-color: #4CAF50; /* Verde suave para los botones de paginación */
+    color: #fff;
+    border: none;
+}
+
+#pagination button:hover {
+    background-color: #129719; /* Verde ligeramente más oscuro al pasar el mouse */
+  }
+
+#pagination button:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#pagination button:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#pagination input {
+    width: 230px;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd; /* Borde suave para la entrada de paginación */
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+}
+
+#pagination input::placeholder {
+    color: #888; /* Texto secundario para el marcador de posición */
+}
+
+#pagination input:focus {
+    border: 2px solid #4CAF50; /* Verde suave para el foco */
+    outline: none;
+}
+
+#infoBox {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #333; /* Texto principal para el cuadro de información */
+    color: #fff;
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+}

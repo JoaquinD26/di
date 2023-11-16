@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <script type="text/javascript" src="../viewsController/login.js"></script>
+
+
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form>
+        <input id='nombre' type="text" placeholder="Username">
+        <br>
+        <input id='contrasenna' type="password" placeholder="Password">
+        <br>
+        <button type="button" onclick="iniciar(document.getElementById('nombre').value, document.getElementById('contrasenna').value)">Login</button>
+        <br><br>
+        <button type="button" onclick="registrar(document.getElementById('nombre').value, document.getElementById('contrasenna').value)">Registrar</button>
+    </form>
+</body>
+
+</html>

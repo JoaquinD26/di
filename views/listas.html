@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" onload="cargarPagina()">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="listas.css"> <!-- Agrega esta línea para enlazar el archivo de estilos -->
+    <title>Departamentos</title>
+    <script type="text/javascript" src="../viewsController/departamento.js"></script>
+    <script type="text/javascript" src="../viewsController/profesores.js"></script>
+    <script type="text/javascript" src="../viewsController/login.js"></script>
+
+</head>
+
+<body onload="getDepartamentos()">
+    <h1>Listado Departamentos - Profesores</h1>
+    <select id="departamentos" onchange="getProfesores(this.value)">
+        <option>  --seleccionar--  </option>
+    </select>
+    <select id="profesores">
+        <option>  --seleccionar--  </option>
+    </select>
+    <p id="msg"></p>
+</body>
+
+</html>
