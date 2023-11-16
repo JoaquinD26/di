@@ -115,9 +115,6 @@ class Profesor
             case 'ultima':
                 $PaginaP = $UltimaP;
                 break;
-            default:
-                $PaginaP = $PaginaP;
-                break;
         }
 
          if ($PaginaP > $UltimaP){
