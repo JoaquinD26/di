@@ -32,6 +32,7 @@ if (isset($data["action"])) {
                 ));
             break;
             case "iniciar":
+                
                 $clave = $usuario->iniciar();
 
                 if ($clave !== 'error') {

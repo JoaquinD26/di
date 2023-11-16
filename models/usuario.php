@@ -72,11 +72,11 @@ class Usuario {
     
         try {
 
-            $sqlGetHash = "SELECT contrasenna FROM usuario WHERE nombre = :nombre";
-            $stmtGetHash = $pdo->prepare($sqlGetHash);
-            $stmtGetHash->bindParam(':nombre', $this->nombre);
-            $stmtGetHash->execute();
-            $hash = $stmtGetHash->fetchColumn();
+            $sql = "SELECT contrasenna FROM usuario WHERE nombre = :nombre";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->execute();
+            $hash = $stmt->fetchColumn();
     
             if (password_verify($this->contrasenna, $hash)) {
 
@@ -89,6 +89,7 @@ class Usuario {
         }
     
         return $result2;
+        
     }
 
     
@@ -101,24 +102,6 @@ function obtenerTokenValido() {
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->execute();
         return $stmt->fetchColumn();
-    } catch (Exception $e) {
-        throw new Exception($e->getMessage(), 1);
-    }
-}
-
-function almacenarTokenEnBaseDeDatos($token) {
-    $pdo = BD::getInstance();
-
-    try {
-
-        $sql = "UPDATE usuario
-        SET token = :token, token_expiracion = DATE_ADD(NOW(), INTERVAL 15 MINUTE)
-        WHERE nombre = :nombre";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':nombre', $this->nombre);
-        $stmt->bindParam(':token', $token);
-        $stmt->execute();
-
     } catch (Exception $e) {
         throw new Exception($e->getMessage(), 1);
     }
@@ -147,12 +130,31 @@ function generarToken($secretKey, $expiration = 900) {
 }
 
 
+function almacenarTokenEnBaseDeDatos($token) {
+    $pdo = BD::getInstance();
+
+    try {
+
+        $sql = "UPDATE usuario
+        SET token = :token, token_expiracion = DATE_ADD(NOW(), INTERVAL 15 MINUTE)
+        WHERE nombre = :nombre";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':nombre', $this->nombre);
+        $stmt->bindParam(':token', $token);
+        $stmt->execute();
+
+    } catch (Exception $e) {
+        throw new Exception($e->getMessage(), 1);
+    }
+}
+
+
 function verificarTokenEnBD($secretKey) {
     $pdo = BD::getInstance();
     $result3 = false;
 
     try {
-        // Obtén el token y la información relacionada desde la base de datos
+
         $sql = "SELECT token, token_expiracion, nombre FROM usuario WHERE token = :token";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':token', $this->tokenStorage);
@@ -177,7 +179,6 @@ function verificarTokenEnBD($secretKey) {
         }
 
     } catch (\Exception $e) {
-        // La validación falló o hubo un error en la base de datos
         return 'Error al validar el token: '.$e->getMessage();
     }
 

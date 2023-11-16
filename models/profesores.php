@@ -227,12 +227,12 @@ class Profesor
         $pdo = BD::getInstance();
         try {
             $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO) VALUES (:dni, :nombre, :codigo_departamento)";
-            $statement = $pdo->prepare($sql);
-            $statement->bindParam(':dni', $this->dni);
-            $statement->bindParam(':nombre', $this->nombre);
-            $statement->bindParam(':codigo_departamento', $this->codigo_departamento);
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':dni', $this->dni);
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
             
-            $statement->execute();
+            $stmt->execute();
            
 
         } catch (Exception $e) {
@@ -244,9 +244,9 @@ class Profesor
         $pdo = BD::getInstance();
         try {
             $sql = "DELETE FROM profesor WHERE dni = :dni";
-            $statement = $pdo->prepare($sql);
-            $statement->bindParam(':dni', $this->dni);
-            $statement->execute();
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':dni', $this->dni);
+            $stmt->execute();
            
 
         } catch (Exception $e) {
@@ -263,31 +263,31 @@ class Profesor
     
             if (!isset($this->nombre) && !isset($this->codigo_departamento)) {
                 $sql = "SELECT NOMBRE, ID_DEPARTAMENTO FROM profesor WHERE dni = :dni";
-                $statement = $pdo->prepare($sql);
-                $statement->bindParam(':dni', $this->dni);
-                $statement->execute();
-                $campos = $statement->fetch(PDO::FETCH_ASSOC);
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':dni', $this->dni);
+                $stmt->execute();
+                $campos = $stmt->fetch(PDO::FETCH_ASSOC);
                 $nombreQ = $campos['NOMBRE'];
                 $codigoDptoQ = $campos['ID_DEPARTAMENTO'];
             } elseif (!isset($this->nombre)) {
                 $sql2 = "UPDATE profesor SET ID_DEPARTAMENTO = :codigo_departamento WHERE dni = :dni";
-                $statement = $pdo->prepare($sql2);
-                $statement->bindParam(':dni', $this->dni);
-                $statement->bindParam(':codigo_departamento', $this->codigo_departamento);
-                $statement->execute();
+                $stmt = $pdo->prepare($sql2);
+                $stmt->bindParam(':dni', $this->dni);
+                $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
+                $stmt->execute();
             } elseif (!isset($this->codigo_departamento)) {
                 $sql3 = "UPDATE profesor SET NOMBRE = :nombre WHERE dni = :dni";
-                $statement = $pdo->prepare($sql3);
-                $statement->bindParam(':dni', $this->dni);
-                $statement->bindParam(':nombre', $this->nombre);
-                $statement->execute();
+                $stmt = $pdo->prepare($sql3);
+                $stmt->bindParam(':dni', $this->dni);
+                $stmt->bindParam(':nombre', $this->nombre);
+                $stmt->execute();
             } else {
                 $sql4 = "UPDATE profesor SET NOMBRE = :nombre, ID_DEPARTAMENTO = :codigo_departamento WHERE dni = :dni";
-                $statement = $pdo->prepare($sql4);
-                $statement->bindParam(':dni', $this->dni);
-                $statement->bindParam(':nombre', $this->nombre);
-                $statement->bindParam(':codigo_departamento', $this->codigo_departamento);
-                $statement->execute();
+                $stmt = $pdo->prepare($sql4);
+                $stmt->bindParam(':dni', $this->dni);
+                $stmt->bindParam(':nombre', $this->nombre);
+                $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
+                $stmt->execute();
             }
             
             $resultM['nombre'] = $nombreQ;

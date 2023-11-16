@@ -18,13 +18,11 @@ function iniciar(nombre, contrasenna) {
         })
         .then(function (response) {
 
-            alert(response.msg)
+            alert(response.msg);
             localStorage.setItem("token", response.data);
             if(response.success === true){
                 window.location.replace("../views/tabla.html");
             }
-            
-
 
         })
         .catch(function (error) {
