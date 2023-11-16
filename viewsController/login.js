@@ -102,7 +102,7 @@ function verificarTokenEnServicioWeb(tokenStorage, dni) {
 }
 
 function cerrarSesion() {
-    alert('Sesión cerrada'); // Puedes quitar esto, es solo un ejemplo
+    alert('Sesión cerrada');
     localStorage.clear();
     window.location.replace("../views/login.html");
 
