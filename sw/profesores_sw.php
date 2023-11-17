@@ -15,8 +15,11 @@ $opcion = isset($data["opcion"]) ? $data["opcion"] : null;
 $dni = isset($data["dni"]) ? $data["dni"] : null;
 $nombre = isset($data["nombre"]) ? $data["nombre"] : null;
 $depto = isset($data["depto"]) ? $data["depto"] : null;
+$direccion = isset($data["direccion"]) ? $data["direccion"] : null;
+$localidad = isset($data["localidad"]) ? $data["localidad"] : null;
+$provincia = isset($data["provincia"]) ? $data["provincia"] : null;
 
-$profesor = new Profesor($dni, $nombre, $depto);
+$profesor = new Profesor($dni, $nombre, $depto, $direccion, $localidad, $provincia);
 
 $json = json_encode(array());
 try {
