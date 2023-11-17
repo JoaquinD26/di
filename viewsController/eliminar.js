@@ -1,9 +1,12 @@
 function eliminar(clave) {
-    
+
+    var tokenStorage = localStorage.getItem("token");
+
     var url = "http://localhost/di/sw/profesores_sw.php";
     var data = {
         action: "delete",
-        dni: clave
+        dni: clave,
+        tokenStorage: tokenStorage
     };
     fetch(url, {
         method: "POST",
@@ -17,7 +20,7 @@ function eliminar(clave) {
         })
         .then(function (response) {
             console.log(clave);
-            alert(response.msg);
+            alert(response.data);
             entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder());
         })
         .catch(function (error) {

@@ -10,9 +10,10 @@ class Profesor
     public $localidad;
     public $provincia;
     public $fecha_inicio;
+    public $tokenStorage;
 
     // Constructor
-    public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia, $fecha_inicio) {
+    public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia, $fecha_inicio, $tokenStorage) {
         $this->dni = $dni;
         $this->nombre = $nombre;
         $this->codigo_departamento = $codigo_departamento;
@@ -20,6 +21,7 @@ class Profesor
         $this->localidad = $localidad;
         $this->provincia = $provincia;
         $this->fecha_inicio = $fecha_inicio;
+        $this->tokenStorage = $tokenStorage;
     }
 
     // Getter para el DNI
@@ -225,27 +227,42 @@ class Profesor
             // Se agrega un profesor despues de haber ingresado or lo tanto la fecha_ingreso que van a introducir al añadirle 
             // siempre será menor que la actual, es decir, siempre va a ser una fecha ya pasada.
 
-            if ($currentDateTime > $expDateTime) { 
-
-            $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO, DIRECCION, LOCALIDAD, PROVINCIA, FECHA_INGRESO) 
-            VALUES (:dni, :nombre, :codigo_departamento, :direccion, :localidad, :provincia, :fecha_inicio)";
+            $sql = "SELECT permisosAdmin FROM usuario WHERE token = :token";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':dni', $this->dni);
-            $stmt->bindParam(':nombre', $this->nombre);
-            $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
-            $stmt->bindParam(':direccion', $this->direccion);
-            $stmt->bindParam(':localidad', $this->localidad);
-            $stmt->bindParam(':provincia', $this->provincia);
-            $stmt->bindParam(':fecha_inicio', $this->fecha_inicio);
-            
+            $stmt->bindParam(':token', $this->tokenStorage);
             $stmt->execute();
+            $permisos = $stmt->fetchColumn();
+         
 
-            $result = true;
+            if ($permisos === 1) {
 
+                if ($currentDateTime > $expDateTime) { 
+
+                    $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO, DIRECCION, LOCALIDAD, PROVINCIA, FECHA_INGRESO) 
+                    VALUES (:dni, :nombre, :codigo_departamento, :direccion, :localidad, :provincia, :fecha_inicio)";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':dni', $this->dni);
+                    $stmt->bindParam(':nombre', $this->nombre);
+                    $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
+                    $stmt->bindParam(':direccion', $this->direccion);
+                    $stmt->bindParam(':localidad', $this->localidad);
+                    $stmt->bindParam(':provincia', $this->provincia);
+                    $stmt->bindParam(':fecha_inicio', $this->fecha_inicio);
+                    
+                    $stmt->execute();
+
+                    $result = true;
+
+                }else{
+
+                    $result = false;
+
+                }
             }else{
-               $result = false;
+
+                $result = 'No tienes permisos de administrador';
+
             }
-           
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
@@ -256,41 +273,77 @@ class Profesor
     public function eliminar() {
         $pdo = BD::getInstance();
         try {
-            $sql = "DELETE FROM profesor WHERE dni = :dni";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':dni', $this->dni);
-            $stmt->execute();
            
+            
+            $sql = "SELECT permisosAdmin FROM usuario WHERE token = :token";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':token', $this->tokenStorage);
+            $stmt->execute();
+            $permisos = $stmt->fetchColumn();
+
+            if ($permisos === 1) {
+
+                $sql = "DELETE FROM profesor WHERE dni = :dni";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':dni', $this->dni);
+                $stmt->execute();
+
+                $result = 'Se eliminó un profesor';
+
+            }else{
+
+                $result = 'No tienes permisos de administrador';
+
+            }
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
         }
+        return $result;
     }
 
     public function modificar() {
         $pdo = BD::getInstance();
         try {
     
-            $sql = "UPDATE profesor 
-            SET NOMBRE = :nombre, ID_DEPARTAMENTO = :codigo_departamento, 
-            DIRECCION = :direccion, 
-            LOCALIDAD = :localidad, 
-            PROVINCIA = :provincia WHERE dni = :dni";
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':dni', $this->dni);
-            $stmt->bindParam(':nombre', $this->nombre);
-            $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
-            $stmt->bindParam(':direccion', $this->direccion);
-            $stmt->bindParam(':localidad', $this->localidad);
-            $stmt->bindParam(':provincia', $this->provincia);
-            $stmt->execute();
+           $sql = "SELECT permisosAdmin FROM usuario WHERE token = :token";
+           $stmt = $pdo->prepare($sql);
+           $stmt->bindParam(':token', $this->tokenStorage);
+           $stmt->execute();
+           $permisos = $stmt->fetchColumn();
 
-            
-           return 'Se modificó perfectamente';
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
-        }
+           if ($permisos === 1) {
+
+                $sql = "UPDATE profesor 
+                SET NOMBRE = :nombre, ID_DEPARTAMENTO = :codigo_departamento, 
+                DIRECCION = :direccion, 
+                LOCALIDAD = :localidad, 
+                PROVINCIA = :provincia WHERE dni = :dni";
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':dni', $this->dni);
+                $stmt->bindParam(':nombre', $this->nombre);
+                $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
+                $stmt->bindParam(':direccion', $this->direccion);
+                $stmt->bindParam(':localidad', $this->localidad);
+                $stmt->bindParam(':provincia', $this->provincia);
+                $stmt->execute();
+
+                
+            $result = 'Se modificó perfectamente';
+
+            }else{
+
+                $result = 'No tienes permisos de administrador';
+
+            }
+
+       } catch (Exception $e) {
+           throw new Exception($e->getMessage(), 1);
+       }
+       
+        return $result;
     }
     
 

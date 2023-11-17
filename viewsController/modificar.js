@@ -1,4 +1,5 @@
 function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
+    var tokenStorage = localStorage.getItem("token");
     var url = "http://localhost/di/sw/profesores_sw.php";
     var data = {
         action: "update",
@@ -7,7 +8,8 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
         depto: campo3,
         direccion: campo4,
         localidad: campo5,
-        provincia: campo6
+        provincia: campo6,
+        tokenStorage: tokenStorage
     };
     fetch(url, {
         method: "POST",
@@ -21,7 +23,7 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
         })
         .then(function (response) {
             
-            var clean_message = response.msg;
+            var clean_message = response.data;
             
             var prefixes = [
                 "SQLSTATE[45000]: <<Unknown error>>: 1644 ",

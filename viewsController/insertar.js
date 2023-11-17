@@ -1,4 +1,7 @@
 function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
+
+    var tokenStorage = localStorage.getItem("token");
+
     var url = "http://localhost/di/sw/profesores_sw.php";
     var data = {
         action: "insert",
@@ -8,7 +11,8 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
         direccion: campo4,
         localidad: campo5,
         provincia: campo6,
-        fecha_inicio: campo7
+        fecha_inicio: campo7,
+        tokenStorage: tokenStorage
     };
     fetch(url, {
         method: "POST",
@@ -24,11 +28,13 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
             console.log(response);
 
             if (response.success) {
-                if(response.data){
+                if(response.data === true){
                     alert(response.msg);
                     window.location.replace("../views/tabla.html");
-                }else{
+                }else if(response.data === false){
                     alert('La fecha tiene que ser una fecha pasada');
+                }else{
+                    alert(response.data);
                 }
                 
 
