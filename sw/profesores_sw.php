@@ -59,9 +59,8 @@ try {
             break;
         case "delete":
             $json = json_encode(array(
-                "msg" => "Se ha eliminado un profesor",
-                "success" => true,
-                "data" => $profesor->eliminar()
+                "msg" => $profesor->eliminar(),
+                "success" => true
             ));
             break;
         }

@@ -92,7 +92,7 @@ function verificarTokenEnServicioWeb(accion, tokenStorage, dni, nombre, dpto, di
                 console.log(response.data);
 
                 if(accion === 'eliminar'){
-                    eliminar(dni);
+                    confirmarEliminar(dni);
                 }else if(accion === 'insertar'){
                     validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
                 }
