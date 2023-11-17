@@ -218,7 +218,6 @@ class Profesor
 
         $UltimaP = ceil($totalRegistros / $numRegistrosPorPagina);
 
-       
         $result['totalRegistros'] = $totalRegistros;
         $result['numRegistrosPorPagina'] = $numRegistrosPorPagina;
         $result['ultimaPag'] = $UltimaP;
@@ -229,11 +228,15 @@ class Profesor
     public function insertar() {
         $pdo = BD::getInstance();
         try {
-            $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO) VALUES (:dni, :nombre, :codigo_departamento)";
+            $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO, DIRECCION, LOCALIDAD, PROVINCIA) 
+            VALUES (:dni, :nombre, :codigo_departamento, :direccion, :localidad, :provincia)";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':dni', $this->dni);
             $stmt->bindParam(':nombre', $this->nombre);
             $stmt->bindParam(':codigo_departamento', $this->codigo_departamento);
+            $stmt->bindParam(':direccion', $this->direccion);
+            $stmt->bindParam(':localidad', $this->localidad);
+            $stmt->bindParam(':provincia', $this->provincia);
             
             $stmt->execute();
            
