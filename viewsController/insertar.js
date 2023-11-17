@@ -1,4 +1,4 @@
-function insertar(campo1, campo2, campo3, campo4, campo5, campo6) {
+function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
     var url = "http://localhost/di/sw/profesores_sw.php";
     var data = {
         action: "insert",
@@ -7,7 +7,8 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6) {
         depto: campo3,
         direccion: campo4,
         localidad: campo5,
-        provincia: campo6
+        provincia: campo6,
+        fecha_inicio: campo7
     };
     fetch(url, {
         method: "POST",
@@ -23,12 +24,17 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6) {
             console.log(response);
 
             if (response.success) {
-                window.location.replace("../views/tabla.html");
-                alert(response.msg);
+                if(response.data){
+                    alert(response.msg);
+                    window.location.replace("../views/tabla.html");
+                }else{
+                    alert('La fecha tiene que ser una fecha pasada');
+                }
+                
 
             } else {
 
-                var clean_message = response.data;
+                var clean_message = 'response.data';
                 var prefixes = [
                     "SQLSTATE[45000]: <<Unknown error>>: 1644 ",
                     "SQLSTATE[23000]: Integrity constraint violation: 1062 "
@@ -73,15 +79,29 @@ function obtenerInputValue6() {
     return document.getElementById('provincia').value;
 }
 
-// TODO datepicker fechainicio
+function obtenerInputValue7() {
+    return document.getElementById('fecha_inicio').value;
+}
+
+$(document).ready(function(){
+    flatpickr("#fecha_inicio", {
+        dateFormat: "Y-m-d", // Formato "yyyy-mm-dd"
+        altInput: true,
+        altFormat: "F j, Y",
+        locale: {
+            firstDayOfWeek: 1, // Lunes como el primer día de la semana
+        },
+    });
+});
 
 
-function validarDatos(dni, nombre, dpto, direccion, localidad, provincia) {
 
-    if (dni.trim() === '' || nombre.trim() === '' || dpto.trim() === '') {
+function validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
+
+    if (dni.trim() === '' || nombre.trim() === '' || dpto.trim() === ''|| fecha_inicio.trim() === '') {
         alert('Por favor, complete todos los campos antes de enviar el formulario.');
     } else {
-        insertar(dni, nombre, dpto, direccion, localidad, provincia);
+        insertar(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
     }
 }
 

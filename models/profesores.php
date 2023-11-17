@@ -3,31 +3,23 @@ require_once('../models/BD.php');
 
 class Profesor
 {
-    private $departamentoId;
-
-    private $filtrosP;
-    private $filtrosP2;
-    private $filtrosQ;
-    private $PaginaP;
-    private $PaginaQ;
-    private $UltimaP;
-    private $Opcion;
-
     public $dni;
     public $nombre;
     public $codigo_departamento;
     public $direccion;
     public $localidad;
     public $provincia;
+    public $fecha_inicio;
 
     // Constructor
-    public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia) {
+    public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia, $fecha_inicio) {
         $this->dni = $dni;
         $this->nombre = $nombre;
         $this->codigo_departamento = $codigo_departamento;
         $this->direccion = $direccion;
         $this->localidad = $localidad;
         $this->provincia = $provincia;
+        $this->fecha_inicio = $fecha_inicio;
     }
 
     // Getter para el DNI
@@ -59,8 +51,6 @@ class Profesor
     public function setCodigoDepartamento($codigo_departamento) {
         $this->codigo_departamento = $codigo_departamento;
     }
-
-    private $Data = array();
 
     public static function getProfesoresDpto($departamentoId)
     {
@@ -228,8 +218,17 @@ class Profesor
     public function insertar() {
         $pdo = BD::getInstance();
         try {
-            $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO, DIRECCION, LOCALIDAD, PROVINCIA) 
-            VALUES (:dni, :nombre, :codigo_departamento, :direccion, :localidad, :provincia)";
+
+            $currentDateTime = new DateTime();
+            $expDateTime = new DateTime($this->fecha_inicio);
+
+            // Se agrega un profesor despues de haber ingresado or lo tanto la fecha_ingreso que van a introducir al añadirle 
+            // siempre será menor que la actual, es decir, siempre va a ser una fecha ya pasada.
+
+            if ($currentDateTime > $expDateTime) { 
+
+            $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO, DIRECCION, LOCALIDAD, PROVINCIA, FECHA_INGRESO) 
+            VALUES (:dni, :nombre, :codigo_departamento, :direccion, :localidad, :provincia, :fecha_inicio)";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':dni', $this->dni);
             $stmt->bindParam(':nombre', $this->nombre);
@@ -237,13 +236,21 @@ class Profesor
             $stmt->bindParam(':direccion', $this->direccion);
             $stmt->bindParam(':localidad', $this->localidad);
             $stmt->bindParam(':provincia', $this->provincia);
+            $stmt->bindParam(':fecha_inicio', $this->fecha_inicio);
             
             $stmt->execute();
+
+            $result = true;
+
+            }else{
+               $result = false;
+            }
            
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
         }
+        return $result;
     }
 
     public function eliminar() {

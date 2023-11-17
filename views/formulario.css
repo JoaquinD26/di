@@ -7,8 +7,8 @@ body {
 }
 
 form {
-  width: 300px;
-  margin: 20vh auto 0;
+  width: 305px;
+  margin: 5vh auto 0;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -23,7 +23,7 @@ label {
   /* Texto principal */
 }
 
-input[type="text"] {
+input {
   width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 15px;
@@ -31,6 +31,7 @@ input[type="text"] {
   border-radius: 4px;
   margin-right: 10px;
   color: #555;
+  cursor: pointer !important;
   /* Texto secundario */
 }
 
@@ -58,4 +59,38 @@ button#cancel {
 button:hover#cancel {
   background-color: #e70400;
   /* Verde ligeramente más oscuro al pasar el mouse */
+}
+
+/* Estilos para el contenedor del date picker de Flatpickr */
+/* Estilos para el contenedor del date picker de Flatpickr */
+.flatpickr-calendar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000; /* Cambia el color del borde a negro */
+  border-radius: 4px;
+  background-color: #fff; /* Cambia el color de fondo a blanco */
+  color: #000; /* Cambia el color del texto a negro */
+  position:fixed; /* Cambia a absolute */
+}
+
+
+/* Estilo para los días en el date picker */
+.flatpickr-days {
+  padding: 0px;
+}
+
+/* Estilo para los días individuales en el date picker */
+.flatpickr-day {
+  width: 0px; /* Ajusta el ancho según sea necesario */
+  height: 30px; /* Ajusta la altura según sea necesario */
+  line-height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para los días seleccionados en el date picker */
+.flatpickr-day.selected {
+  background-color: #4CAF50; /* Cambia el color de fondo al seleccionar un día a verde (#4CAF50) */
+  color: white;
+  border-color: #17a01e;
 }

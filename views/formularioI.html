@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="../views/formulario.css">
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script type="text/javascript" src="../viewsController/insertar.js"></script>
     <script type="text/javascript" src="../viewsController/tabla.js"></script>
     <script type="text/javascript" src="../viewsController/login.js"></script>
+   
 
     <title>Formulario</title>
 </head>
+
 <body onload="cargarPagina()">
     <h2>Insertar</h2>
     <form>
@@ -15,16 +24,21 @@
 
         <input type="text" id="nombre" name="nombre" placeholder="Nombre"><br>
 
-        <input type="text" id="codigo_departamento" name="codigo_departamento" placeholder="C&oacute;digo de Departamento"><br>
+        <input type="text" id="codigo_departamento" name="codigo_departamento"
+            placeholder="C&oacute;digo de Departamento"><br>
 
-        <input type="text" id="direccion" name="direccion" placeholder="direccion"><br>
+        <input type="text" id="direccion" name="direccion" placeholder="Direcci&oacute;n"><br>
 
-        <input type="text" id="localidad" name="localidad" placeholder="localidad"><br>
+        <input type="text" id="localidad" name="localidad" placeholder="Localidad"><br>
 
-        <input type="text" id="provincia" name="provincia" placeholder="provincia"><br><br>
+        <input type="text" id="provincia" name="provincia" placeholder="Provincia"><br>
 
-        <button id="insert" type="button" onclick="cargarPagina(obtenerInputValue1(), obtenerInputValue2(), obtenerInputValue3(), obtenerInputValue4(), obtenerInputValue5(), obtenerInputValue6())">Insertar</button><br><br>
+        <input type="text" id="fecha_inicio" name="fecha_inicio" placeholder="Fecha de Inicio"><br><br>
+
+        <button id="insert" type="button"
+            onclick="cargarPagina('insertar',obtenerInputValue1(), obtenerInputValue2(), obtenerInputValue3(), obtenerInputValue4(), obtenerInputValue5(), obtenerInputValue6(), obtenerInputValue7())">Insertar</button><br><br>
         <button id="cancel" type="button" onclick="window.location.replace('../views/tabla.html')">Cancelar</button>
     </form>
 </body>
+
 </html>

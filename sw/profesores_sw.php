@@ -18,8 +18,9 @@ $depto = isset($data["depto"]) ? $data["depto"] : null;
 $direccion = isset($data["direccion"]) ? $data["direccion"] : null;
 $localidad = isset($data["localidad"]) ? $data["localidad"] : null;
 $provincia = isset($data["provincia"]) ? $data["provincia"] : null;
+$fechaInicio = isset($data["fecha_inicio"]) ? $data["fecha_inicio"] : null;
 
-$profesor = new Profesor($dni, $nombre, $depto, $direccion, $localidad, $provincia);
+$profesor = new Profesor($dni, $nombre, $depto, $direccion, $localidad, $provincia, $fechaInicio);
 
 $json = json_encode(array());
 try {

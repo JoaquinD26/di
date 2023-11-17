@@ -62,6 +62,7 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 var tdDireccion = document.createElement('td');
                 var tdLocalidad = document.createElement('td');
                 var tdProvincia = document.createElement('td');
+                var tdFechaInicio = document.createElement('td');
                 var tdButtonEditar = document.createElement('td');
                 var tdButtonEliminar = document.createElement('td');
             
@@ -70,6 +71,7 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 tdDireccion.textContent = response.data.Dregistros[i].DIRECCION;
                 tdLocalidad.textContent = response.data.Dregistros[i].LOCALIDAD;
                 tdProvincia.textContent = response.data.Dregistros[i].PROVINCIA;
+                tdFechaInicio.textContent = response.data.Dregistros[i].FECHA_INGRESO;
             
                 var editarButton = document.createElement('button');
                 var editarIcon = document.createElement('i');
@@ -84,7 +86,7 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 eliminarIcon.classList.add('fas', 'fa-trash');
                 eliminarButton.appendChild(eliminarIcon);
                 eliminarButton.setAttribute('id', 'eliminar');
-                eliminarButton.setAttribute('onclick', "cargarPagina(this.parentNode.parentNode.getAttribute('value'));");
+                eliminarButton.setAttribute('onclick', "cargarPagina('eliminar',this.parentNode.parentNode.getAttribute('value'));");
 
                 // eliminarButton.addEventListener('click', function(){
                 //     cargarPagina();
@@ -100,6 +102,7 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 tr.appendChild(tdDireccion);
                 tr.appendChild(tdLocalidad);
                 tr.appendChild(tdProvincia);
+                tr.appendChild(tdFechaInicio);
                 tr.appendChild(tdButtonEditar);
                 tr.appendChild(tdButtonEliminar);
 
