@@ -331,7 +331,7 @@ class Profesor
                 $stmt->execute();
 
                 
-            $result = 'Se modificó perfectamente';
+            $result = 'Se modificó correctamente';
 
             }else{
 

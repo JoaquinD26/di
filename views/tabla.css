@@ -4,6 +4,7 @@ body {
     padding: 8px;
     font-size: 14px;
     color: #333; /* Texto principal */
+    resize: none; /* Evitar redimensionamiento de la ventana del navegador */
 }
 
 h2 {
@@ -60,18 +61,31 @@ table button#eliminar:hover {
     background-color: #e90400; /* Verde ligeramente más oscuro al pasar el mouse */
   }
 
-table {
+
+/* #contenedorTabla {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
 }
 
-th,
-td {
-    padding: 8px;
-    border: 1px solid #ddd; /* Borde suave para las celdas */
-    text-align: center;
+@media screen and (max-width: 600px) {
+    table {
+      display: none; 
+    }
+  } */
+
+table {
+  width: 100%;
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  border-collapse: collapse;
 }
+
+td, th {
+  word-wrap: break-word; /* Permite que las palabras largas se rompan y continúen en la siguiente línea */
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
 
 th {
     background-color: #333; /* Texto principal para los encabezados de tabla */
@@ -80,7 +94,7 @@ th {
 
 th:nth-last-of-type(1),
 th:nth-last-of-type(2) {
-    width: 12.1%; /* Ajusta el ancho según tus necesidades */
+    width: 10.1%; /* Ajusta el ancho según tus necesidades */
 }
 
 td:nth-last-of-type(1) button,
@@ -95,7 +109,7 @@ td:nth-last-of-type(2) button {
     position: fixed;
     background: #f5f5f5; /* Fondo suave para la paginación */
     bottom: 1px;
-    left: 22px;
+    left: 10px;
     padding: 5px;
     border-radius: 10px;
 }
@@ -154,4 +168,14 @@ td:nth-last-of-type(2) button {
     padding: 8px;
     border-radius: 3px;
     font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+    #infoBox {
+        position: static; /* Cambia la posición a estática para que fluya con el documento */
+        width: 100%; /* O ajusta según tus necesidades */
+        margin-top: 8px; /* Añade margen superior para separarlo de otros elementos */
+        margin-bottom: 40px; /* Añade margen inferior para separarlo de otros elementos */
+        right: auto; /* Elimina la propiedad 'right' */
+    }
 }
