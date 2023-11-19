@@ -8,8 +8,9 @@ $json = json_encode(array());
 $nombre = isset($data["nombre"]) ? $data["nombre"] : null;
 $contrasenna = isset($data["contrasenna"]) ? $data["contrasenna"] : null;
 $tokenStorage = isset($data["tokenStorage"]) ? $data["tokenStorage"] : null;
+$permisos = isset($data["permisos"]) ? $data["permisos"] : null;
 
-$usuario = new Usuario($nombre, $contrasenna, $tokenStorage);
+$usuario = new Usuario($nombre, $contrasenna, $tokenStorage, $permisos);
 
 if (isset($data["action"])) {
     $action = $data["action"];
@@ -67,6 +68,33 @@ if (isset($data["action"])) {
                     ));
                 }
             break;
+            case "list":
+                $json = json_encode(array(
+                    "msg" => "Listado de Usuarios",
+                    "success" => true,
+                    "data" => Usuario::list($tokenStorage)
+                ));
+            break;
+            case "get":
+                $json = json_encode(array(
+                    "msg" => "Listado de Usuarios",
+                    "success" => true,
+                    "data" => Usuario::getUser($tokenStorage)
+                ));
+            break;
+            case "update":
+                $json = json_encode(array(
+                    "success" => true,
+                    "data" => $usuario->modificar()
+                ));
+            break;
+            case "delete":
+                $json = json_encode(array(
+                    "success" => true,
+                    "data" => $usuario->eliminar()
+                ));
+            break;
+            
             
         }
 

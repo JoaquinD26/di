@@ -41,3 +41,47 @@ function confirmarEliminar(dni){
   }
 
 }
+
+function eliminarUser(clave) {
+
+    var tokenStorage = localStorage.getItem("token");
+
+    var url = "http://localhost/di/sw/usuario_sw.php";
+    var data = {
+        action: "delete",
+        nombre: clave,
+        tokenStorage: tokenStorage
+    };
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (response) {
+            console.log(clave);
+            alert(response.data);
+            usuarios();
+        })
+        .catch(function (error) {
+            console.error('Error al procesar la solicitud:', error);
+        });
+}
+
+function confirmarEliminarUser(nombre){
+    // Muestra un cuadro de diálogo con "Aceptar" y "Cancelar"
+  var confirmacion = confirm("¿Estás seguro de que deseas eliminar?");
+
+  // Si el usuario hace clic en "Aceptar", ejecuta la función eliminar
+  if (confirmacion) {
+    eliminarUser(nombre);
+  } else {
+    // Si el usuario hace clic en "Cancelar", puedes agregar código para revertir cambios o simplemente no hacer nada
+    alert("Eliminación cancelada");
+  }
+
+}

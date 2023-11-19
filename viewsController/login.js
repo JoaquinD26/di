@@ -58,16 +58,16 @@ function registrar(nombre, contrasenna) {
         });
 }
 
-function cargarPagina(accion, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
+function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
     
 
     var tokenStorage = localStorage.getItem("token");
 
-    verificarTokenEnServicioWeb(accion, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
+    verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
 
 }
 
-function verificarTokenEnServicioWeb(accion, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
+function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
     var url = "http://localhost/di/sw/usuario_sw.php";
     var data = {
         action: "verificar",
@@ -95,6 +95,8 @@ function verificarTokenEnServicioWeb(accion, tokenStorage, dni, nombre, dpto, di
                     confirmarEliminar(dni);
                 }else if(accion === 'insertar'){
                     validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
+                }else if(accion === 'eliminarUser'){
+                    confirmarEliminarUser(nombreUsuario);
                 }
                 
             }

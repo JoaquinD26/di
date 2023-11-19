@@ -55,3 +55,15 @@ button#cancel {
 button:hover#cancel {
     background-color: #e70400;
 }
+
+button[disabled] {
+    background-color: #cccccc; /* Color gris */
+    color: #666666; /* Color de texto gris oscuro */
+    cursor: not-allowed; /* Cambia el cursor a "no permitido" cuando está deshabilitado */
+}
+
+/* Estilo adicional si quieres cambiar la apariencia cuando el mouse pasa sobre el botón deshabilitado */
+button[disabled]:hover {
+    background-color: #cccccc; /* Puedes ajustar el color si lo deseas */
+    color: #666666;
+}

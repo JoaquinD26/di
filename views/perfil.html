@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="perfil.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script type="text/javascript" src="../viewsController/login.js"></script>
+  <script type="text/javascript" src="../viewsController/perfil.js"></script>
+  <script type="text/javascript" src="../viewsController/modificar.js"></script>
+  <script type="text/javascript" src="../viewsController/eliminar.js"></script>
+
+
+  <title>Información del Usuario</title>
+</head>
+
+<body onload="usuarios(), datosPerfil()">
+
+  <header>
+    <h1 id="nombre"></h1>
+  </header>
+
+  <button id="cerrarSesion" onclick="cerrarSesion()"> Cerrar Sesión <i class="fas fa-sign-out-alt"></i></button>
+
+  <section id="user-info">
+    <div class="info-item" id="nombre2">
+
+    </div>
+    <div class="info-item" id="token">
+
+    </div>
+    <div class="info-item" id="permisos">
+
+    </div>
+  </section>
+
+  <br>
+  <h2>Lista de Usuarios</h2>
+
+  <div id="contenedorTabla">
+    <table id="myTable">
+      <tr>
+        <th>Nombre</th>
+        <th>Expiración Sesión</th>
+        <th>Admin</th>
+        <th>EditarPermisos</th>
+        <th>Eliminar</th>
+      </tr>
+    </table>
+  </div>
+  <br><br><br>
+  
+
+  <button id="volver" onclick="window.location.replace('../views/tabla.html')"><i class="fas fa-arrow-left"></i>
+    Volver</i></button>
+
+</body>
+
+</html>
