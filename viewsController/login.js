@@ -20,7 +20,7 @@ function iniciar(nombre, contrasenna) {
 
             alert(response.msg);
             localStorage.setItem("token", response.data);
-            if(response.success === true){
+            if (response.success === true) {
                 window.location.replace("../views/tabla.html");
             }
 
@@ -59,7 +59,7 @@ function registrar(nombre, contrasenna) {
 }
 
 function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
-    
+
 
     var tokenStorage = localStorage.getItem("token");
 
@@ -84,21 +84,21 @@ function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, n
             return res.json();
         })
         .then(function (response) {
-            
+
             if (!response || response.data === false) {
                 window.location.replace("../views/login.html");
             } else {
 
                 console.log(response.data);
 
-                if(accion === 'eliminar'){
+                if (accion === 'eliminar') {
                     confirmarEliminar(dni);
-                }else if(accion === 'insertar'){
+                } else if (accion === 'insertar') {
                     validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
-                }else if(accion === 'eliminarUser'){
+                } else if (accion === 'eliminarUser') {
                     confirmarEliminarUser(nombreUsuario);
                 }
-                
+
             }
         })
         .catch(function (error) {
@@ -111,4 +111,28 @@ function cerrarSesion() {
     localStorage.clear();
     window.location.replace("../views/login.html");
 
+}
+
+function activarRegistro() {
+
+    var url = "http://localhost/di/sw/usuario_sw.php";
+    var data = {
+        action: "numeroUsuarios"
+    };
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (response) {
+
+        })
+        .catch(function (error) {
+            console.error('Error al procesar la solicitud:', error);
+        });
 }

@@ -86,7 +86,7 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 eliminarIcon.classList.add('fas', 'fa-trash');
                 eliminarButton.appendChild(eliminarIcon);
                 eliminarButton.setAttribute('id', 'eliminar');
-                eliminarButton.setAttribute('onclick', "cargarPagina('eliminar',this.parentNode.parentNode.getAttribute('value'));");
+                eliminarButton.setAttribute('onclick', "cargarPagina('eliminar','',this.parentNode.parentNode.getAttribute('value'));");
 
                 // eliminarButton.addEventListener('click', function(){
                 //     cargarPagina();

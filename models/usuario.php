@@ -57,7 +57,7 @@ class Usuario
                 $stmt->execute();
                 $numeroUsuarios = $stmt->fetch(PDO::FETCH_ASSOC)['count(*)'];
 
-                if ($numeroUsuarios < 10) {
+                if ($numeroUsuarios < 7) {
                     // Insertar el nuevo usuario en la base de datos
                     $sql2 = "INSERT INTO usuario (nombre, contrasenna) VALUES (:nombre, :contrasenna)";
                     $stmt = $pdo->prepare($sql2);
