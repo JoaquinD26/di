@@ -7,5 +7,5 @@ de la fecha de entrega de la práctica.
 Recursos externos->
     https://sweetalert2.github.io/,
     https://flatpickr.js.org/,
-    
+    https://getcomposer.org/,
     
