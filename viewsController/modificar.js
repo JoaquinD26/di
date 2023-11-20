@@ -45,8 +45,8 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
                 ];
     
                 for (var prefix of prefixes) {
-                    if (response.msg.includes(prefix)) {
-                        clean_message = response.msg.replace(prefix, '');
+                    if (response.data.msg.includes(prefix)) {
+                        clean_message = response.data.msg.replace(prefix, '');
                     }
                 }
 
