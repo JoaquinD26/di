@@ -17,7 +17,7 @@ function getDepartamentos() {
         })
         .then((text) => {
             try {
-                console.log(text);
+                
                 var response = JSON.parse(text); // Parse the text if it's JSON
                 var p = document.getElementById("msg");
                 var select = document.getElementById("departamentos");

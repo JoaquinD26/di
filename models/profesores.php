@@ -13,7 +13,8 @@ class Profesor
     public $tokenStorage;
 
     // Constructor
-    public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia, $fecha_inicio, $tokenStorage) {
+    public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia, $fecha_inicio, $tokenStorage)
+    {
         $this->dni = $dni;
         $this->nombre = $nombre;
         $this->codigo_departamento = $codigo_departamento;
@@ -25,32 +26,38 @@ class Profesor
     }
 
     // Getter para el DNI
-    public function getDni() {
+    public function getDni()
+    {
         return $this->dni;
     }
 
     // Setter para el DNI
-    public function setDni($dni) {
+    public function setDni($dni)
+    {
         $this->dni = $dni;
     }
 
     // Getter para el nombre
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
     // Setter para el nombre
-    public function setNombre($nombre) {
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
     // Getter para el código del departamento
-    public function getCodigoDepartamento() {
+    public function getCodigoDepartamento()
+    {
         return $this->codigo_departamento;
     }
 
     // Setter para el código del departamento
-    public function setCodigoDepartamento($codigo_departamento) {
+    public function setCodigoDepartamento($codigo_departamento)
+    {
         $this->codigo_departamento = $codigo_departamento;
     }
 
@@ -75,7 +82,7 @@ class Profesor
     {
         $pdo = BD::getInstance();
 
-        
+
         if (empty($filtrosP) && empty($filtrosP2)) {
             $filtrosQ = '%';
             $filtrosQ2 = '%';
@@ -89,7 +96,7 @@ class Profesor
             $filtrosQ = '%' . $filtrosP . '%';
             $filtrosQ2 = '%' . $filtrosP2 . '%';
         }
-        
+
         $result1 = array();
 
         $Info = self::getInfo($filtrosQ, $filtrosQ2);
@@ -115,36 +122,31 @@ class Profesor
                 break;
         }
 
-         if ($PaginaP > $UltimaP){
- 
-                $PaginaP = $UltimaP;
-                
-            }
-            else if ($PaginaP < 1){
+        if ($PaginaP > $UltimaP) {
 
-               $PaginaP = 1;
+            $PaginaP = $UltimaP;
+        } else if ($PaginaP < 1) {
 
-            }
+            $PaginaP = 1;
+        }
 
-            $PaginaQ = ($PaginaP - 1) * $numRegistrosPorPagina;
+        $PaginaQ = ($PaginaP - 1) * $numRegistrosPorPagina;
 
         try {
 
-                $sql = "SELECT * 
+            $sql = "SELECT * 
                 FROM profesor 
                 where (nombre like :filtros or id_departamento like :filtros)
                 or (nombre like :filtros2 or id_departamento like :filtros2)
                 limit :pagina, :registros";
 
-                $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':filtros', $filtrosQ);
-                $stmt->bindParam(':filtros2', $filtrosQ2);
-                $stmt->bindParam(':pagina', $PaginaQ, PDO::PARAM_INT);
-                $stmt->bindParam(':registros', $numRegistrosPorPagina, PDO::PARAM_INT);
-                $stmt->execute();
-                $Data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':filtros', $filtrosQ);
+            $stmt->bindParam(':filtros2', $filtrosQ2);
+            $stmt->bindParam(':pagina', $PaginaQ, PDO::PARAM_INT);
+            $stmt->bindParam(':registros', $numRegistrosPorPagina, PDO::PARAM_INT);
+            $stmt->execute();
+            $Data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
         }
@@ -173,7 +175,7 @@ class Profesor
             $filtrosQ = '%' . $filtrosP . '%';
             $filtrosQ2 = '%' . $filtrosP2 . '%';
         }
-        
+
         $result = array();
 
         try {
@@ -213,11 +215,12 @@ class Profesor
         $result['totalRegistros'] = $totalRegistros;
         $result['numRegistrosPorPagina'] = $numRegistrosPorPagina;
         $result['ultimaPag'] = $UltimaP;
-    
+
         return $result;
     }
 
-    public function insertar() {
+    public function insertar()
+    {
         $pdo = BD::getInstance();
         try {
 
@@ -232,11 +235,11 @@ class Profesor
             $stmt->bindParam(':token', $this->tokenStorage);
             $stmt->execute();
             $permisos = $stmt->fetchColumn();
-         
+
 
             if ($permisos === 1) {
 
-                if ($currentDateTime > $expDateTime) { 
+                if ($currentDateTime > $expDateTime) {
 
                     $sql = "INSERT INTO profesor (DNI, NOMBRE, ID_DEPARTAMENTO, DIRECCION, LOCALIDAD, PROVINCIA, FECHA_INGRESO) 
                     VALUES (:dni, :nombre, :codigo_departamento, :direccion, :localidad, :provincia, :fecha_inicio)";
@@ -248,33 +251,31 @@ class Profesor
                     $stmt->bindParam(':localidad', $this->localidad);
                     $stmt->bindParam(':provincia', $this->provincia);
                     $stmt->bindParam(':fecha_inicio', $this->fecha_inicio);
-                    
+
                     $stmt->execute();
 
                     $result = true;
-
-                }else{
+                } else {
 
                     $result = false;
-
                 }
-            }else{
+            } else {
 
                 $result = 'No tienes permisos de administrador';
-
             }
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
         }
         return $result;
     }
 
-    public function eliminar() {
+    public function eliminar()
+    {
         $pdo = BD::getInstance();
+        $result = array();
         try {
-           
-            
+
+
             $sql = "SELECT permisosAdmin FROM usuario WHERE token = :token";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':token', $this->tokenStorage);
@@ -288,32 +289,37 @@ class Profesor
                 $stmt->bindParam(':dni', $this->dni);
                 $stmt->execute();
 
-                $result = 'Se eliminó un profesor';
+                $result = [
+                    'msg' => 'Se eliminó un profesor',
+                    'success' => true
+                ];
+            } else {
 
-            }else{
-
-                $result = 'No tienes permisos de administrador';
-
+                $result = [
+                    'msg' => 'No tienes permisos de administrador',
+                    'success' => false
+                ];
             }
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
         }
         return $result;
     }
 
-    public function modificar() {
+    public function modificar()
+    {
         $pdo = BD::getInstance();
+        $result = array();
         try {
-    
 
-           $sql = "SELECT permisosAdmin FROM usuario WHERE token = :token";
-           $stmt = $pdo->prepare($sql);
-           $stmt->bindParam(':token', $this->tokenStorage);
-           $stmt->execute();
-           $permisos = $stmt->fetchColumn();
 
-           if ($permisos === 1) {
+            $sql = "SELECT permisosAdmin FROM usuario WHERE token = :token";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':token', $this->tokenStorage);
+            $stmt->execute();
+            $permisos = $stmt->fetchColumn();
+
+            if ($permisos === 1) {
 
                 $sql = "UPDATE profesor 
                 SET NOMBRE = :nombre, ID_DEPARTAMENTO = :codigo_departamento, 
@@ -330,23 +336,22 @@ class Profesor
                 $stmt->bindParam(':provincia', $this->provincia);
                 $stmt->execute();
 
-                
-            $result = 'Se modificó correctamente';
+                $result = [
+                    'msg' => 'Se modificó correctamente',
+                    'success' => true
+                ];
 
-            }else{
+            } else {
 
-                $result = 'No tienes permisos de administrador';
-
+                $result = [
+                    'msg' => 'No tienes permisos de administrador',
+                    'success' => false
+                ];
             }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
+        }
 
-       } catch (Exception $e) {
-           throw new Exception($e->getMessage(), 1);
-       }
-       
         return $result;
     }
-    
-
-
 }
-?>

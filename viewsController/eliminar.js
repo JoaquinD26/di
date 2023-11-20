@@ -19,26 +19,51 @@ function eliminar(clave) {
             return res.json();
         })
         .then(function (response) {
-            console.log(clave);
-            alert(response.msg);
-            entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder());
+
+            if (response.data.success) {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "success",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#4CAF50'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder());
+                    }
+                });
+
+            } else {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#e53935'
+                });
+
+            }
+
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
         });
 }
 
-function confirmarEliminar(dni){
-    // Muestra un cuadro de diálogo con "Aceptar" y "Cancelar"
-  var confirmacion = confirm("¿Estás seguro de que deseas eliminar?");
+function confirmarEliminar(dni) {
 
-  // Si el usuario hace clic en "Aceptar", ejecuta la función eliminar
-  if (confirmacion) {
-    eliminar(dni);
-  } else {
-    // Si el usuario hace clic en "Cancelar", puedes agregar código para revertir cambios o simplemente no hacer nada
-    alert("Eliminación cancelada");
-  }
+    Swal.fire({
+        title: "Estás seguro?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#4CAF50',
+        cancelButtonColor: "#e53935",
+        confirmButtonText: "Si, lo quiero eliminar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            eliminar(dni);
+        }
+    });
 
 }
 
@@ -63,25 +88,49 @@ function eliminarUser(clave) {
             return res.json();
         })
         .then(function (response) {
-            console.log(clave);
-            alert(response.data);
-            usuarios();
+           
+            if (response.data.success) {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "success",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#4CAF50'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        usuarios();
+                    }
+                });
+
+            } else {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#e53935'
+                });
+
+            }
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
         });
 }
 
-function confirmarEliminarUser(nombre){
+function confirmarEliminarUser(nombre) {
     // Muestra un cuadro de diálogo con "Aceptar" y "Cancelar"
-  var confirmacion = confirm("¿Estás seguro de que deseas eliminar?");
-
-  // Si el usuario hace clic en "Aceptar", ejecuta la función eliminar
-  if (confirmacion) {
-    eliminarUser(nombre);
-  } else {
-    // Si el usuario hace clic en "Cancelar", puedes agregar código para revertir cambios o simplemente no hacer nada
-    alert("Eliminación cancelada");
-  }
+    Swal.fire({
+        title: "Estás seguro?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#4CAF50',
+        cancelButtonColor: "#e53935",
+        confirmButtonText: "Si, lo quiero eliminar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            eliminarUser(nombre);
+        }
+    });
 
 }

@@ -23,22 +23,47 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
         })
         .then(function (response) {
 
-            var clean_message = response.data;
+            if (response.data.success) {
 
-            var prefixes = [
-                "SQLSTATE[45000]: <<Unknown error>>: 1644 ",
-                "SQLSTATE[23000]: Integrity constraint violation: 1062 "
-            ];
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "success",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#4CAF50'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder());
+                    }
+                });
 
-            for (var prefix of prefixes) {
-                if (response.msg.includes(prefix)) {
-                    clean_message = response.msg.replace(prefix, '');
+            } else {
+                var clean_message = response.data.msg;
+
+                var prefixes = [
+                    "SQLSTATE[45000]: <<Unknown error>>: 1644 ",
+                    "SQLSTATE[23000]: Integrity constraint violation: 1062 "
+                ];
+    
+                for (var prefix of prefixes) {
+                    if (response.msg.includes(prefix)) {
+                        clean_message = response.msg.replace(prefix, '');
+                    }
                 }
+
+                Swal.fire({
+                    title: clean_message,
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#e53935'
+                    
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder());
+                    }
+                });
+
             }
-
-            alert(clean_message);
-
-            entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder());
+            
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
@@ -125,9 +150,35 @@ function modificarUser(clave, campo) {
         })
         .then(function (response) {
 
-            alert(response.data);
+            if (response.data.success) {
 
-            usuarios();
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "success",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#4CAF50'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        usuarios();
+                    }
+                });
+
+            } else {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#e53935'
+                    
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        usuarios();
+                    }
+                });
+
+            }
+
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
@@ -156,8 +207,17 @@ function toggleEditModeUser(button) {
                 modificarUser(clave, Admin);
     
             }else{
-                alert('Debe ser un 0 o un 1');
-                usuarios();
+                Swal.fire({
+                    title: 'Tiene que ser 0 o 1',
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#e53935'
+                    
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        usuarios();
+                    }
+                });
             }
 
            

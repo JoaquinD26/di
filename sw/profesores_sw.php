@@ -52,15 +52,12 @@ try {
             break;
         case "update":
             $json = json_encode(array(
-                "msg" => "Se ha modificado profesor",
-                "success" => true,
                 "data" => $profesor->modificar()
             ));
             break;
         case "delete":
             $json = json_encode(array(
-                "msg" => $profesor->eliminar(),
-                "success" => true
+                "data" => $profesor->eliminar()
             ));
             break;
         }

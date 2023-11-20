@@ -25,18 +25,40 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
             return res.json();
         })
         .then(function (response) {
-            console.log(response);
 
             if (response.success) {
-                if(response.data === true){
-                    alert(response.msg);
-                    window.location.replace("../views/tabla.html");
-                }else if(response.data === false){
-                    alert('La fecha tiene que ser una fecha pasada');
-                }else{
-                    alert(response.data);
+                if (response.data === true) {
+
+                    Swal.fire({
+                        title: response.msg,
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: '#4CAF50'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.replace("../views/tabla.html");
+                        }
+                    });
+
+                } else if (response.data === false) {
+
+                    Swal.fire({
+                        title: 'La fecha tiene que ser una fecha pasada',
+                        icon: "error",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: '#e53935'
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        title: response.data,
+                        icon: "error",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: '#e53935'
+                    });
                 }
-                
+
 
             } else {
 
@@ -52,7 +74,12 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
                     }
                 }
 
-                alert(clean_message);
+                Swal.fire({
+                    title: clean_message,
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: '#e53935'
+                });
             }
 
         })
@@ -89,7 +116,7 @@ function obtenerInputValue7() {
     return document.getElementById('fecha_inicio').value;
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     flatpickr("#fecha_inicio", {
         dateFormat: "Y-m-d", // Formato "yyyy-mm-dd"
         altInput: true,
@@ -104,8 +131,13 @@ $(document).ready(function(){
 
 function validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
 
-    if (dni.trim() === '' || nombre.trim() === '' || dpto.trim() === ''|| fecha_inicio.trim() === '') {
-        alert('Por favor, complete todos los campos antes de enviar el formulario.');
+    if (dni.trim() === '' || nombre.trim() === '' || dpto.trim() === '' || fecha_inicio.trim() === '') {
+        Swal.fire({
+            title: 'Por favor, complete todos los campos antes de enviar el formulario.',
+            icon: "error",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: '#e53935'
+        });
     } else {
         insertar(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
     }

@@ -51,8 +51,6 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
             input.style.pointerEvents = 'none';
             paginaActual(response.data.pagina, paginaA);
 
-            console.log(response.data.Dregistros.length);
-
             for (var i = 0; i < response.data.Dregistros.length; i++) {
                 var tr = document.createElement('tr');
                 tr.setAttribute('id', [i]);
@@ -87,12 +85,6 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 eliminarButton.appendChild(eliminarIcon);
                 eliminarButton.setAttribute('id', 'eliminar');
                 eliminarButton.setAttribute('onclick', "cargarPagina('eliminar','',this.parentNode.parentNode.getAttribute('value'));");
-
-                // eliminarButton.addEventListener('click', function(){
-                //     cargarPagina();
-                //     eliminar(response.data.Dregistros[i].DNI);
-                // });
-
             
                 tdButtonEditar.appendChild(editarButton);
                 tdButtonEliminar.appendChild(eliminarButton);

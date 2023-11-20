@@ -18,12 +18,32 @@ function iniciar(nombre, contrasenna) {
         })
         .then(function (response) {
 
-            alert(response.msg);
-            localStorage.setItem("token", response.data);
             if (response.success === true) {
-                window.location.replace("../views/tabla.html");
-            }
 
+                Swal.fire({
+                    title: response.msg,
+                    text: '',
+                    icon: 'success',
+                    confirmButtonColor: '#4CAF50',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        localStorage.setItem("token", response.data);
+                        // Realiza la redirección o la acción que desees
+                        window.location.replace("../views/tabla.html");
+
+                    }
+                });
+            } else {
+
+                Swal.fire({
+                    title: response.msg,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonColor: '#e53935',
+                    confirmButtonText: 'Volver a Intentar'
+                });
+            }
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
@@ -50,7 +70,27 @@ function registrar(nombre, contrasenna) {
         })
         .then(function (response) {
 
-            alert(response.data);
+
+            if (response.data.success === true) {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    text: '',
+                    icon: 'success',
+                    confirmButtonColor: '#4CAF50', // Color verde
+                    confirmButtonText: 'Aceptar'
+                });
+
+            } else {
+
+                Swal.fire({
+                    title: response.data.msg,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonColor: '#e53935', // Color verde
+                    confirmButtonText: 'Volver a Intentar'
+                });
+            }
 
         })
         .catch(function (error) {
@@ -89,8 +129,6 @@ function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, n
                 window.location.replace("../views/login.html");
             } else {
 
-                console.log(response.data);
-
                 if (accion === 'eliminar') {
                     confirmarEliminar(dni);
                 } else if (accion === 'insertar') {
@@ -107,9 +145,21 @@ function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, n
 }
 
 function cerrarSesion() {
-    alert('Sesión cerrada');
-    localStorage.clear();
-    window.location.replace("../views/login.html");
+
+    Swal.fire({
+        title: 'Sesión cerrada',
+        text: '',
+        icon: 'success',
+        confirmButtonColor: '#4CAF50', // Color verde
+        confirmButtonText: 'Aceptar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            localStorage.clear();
+            window.location.replace("../views/login.html");
+
+        }
+    });
 
 }
 
@@ -133,7 +183,7 @@ function activarRegistro() {
 
             var button = document.getElementById('registro');
 
-            if(response.data){
+            if (response.data) {
                 button.setAttribute('disabled', 'true');
             }
 

@@ -114,7 +114,6 @@ function usuarios() {
                 table.appendChild(tr);
             }
 
-            console.log(response.data);
 
 
         })

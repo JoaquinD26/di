@@ -56,6 +56,7 @@ class Usuario
     public function eliminar()
     {
         $pdo = BD::getInstance();
+        $result = array();
         try {
 
 
@@ -72,10 +73,17 @@ class Usuario
                 $stmt->bindParam(':nombre', $this->nombre);
                 $stmt->execute();
 
-                $result = 'Se eliminó un usuario';
+                $result = [
+                    'msg' => 'Se eliminó un usuario',
+                    'success' => true
+                ];
+
             } else {
 
-                $result = 'No tienes permisos de administrador';
+                $result = [
+                    'msg' => 'No tienes permisos de administrador',
+                    'success' => false
+                ];
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
@@ -86,6 +94,7 @@ class Usuario
     public function modificar()
     {
         $pdo = BD::getInstance();
+        $result = array();
         try {
 
 
@@ -107,14 +116,26 @@ class Usuario
                     $stmt->bindParam(':nombre', $this->nombre);
                     $stmt->execute();
 
-                    $result = 'Se modificó correctamente';
+                    $result = [
+                        'msg' => 'Se modificó correctamente',
+                        'success' => true
+                    ];
+
                 } else {
 
-                    $result = $this->permisos;
+                    $result = [
+                        'msg' => 'Tiene que ser 0 o 1',
+                        'success' => false
+                    ];
+
                 }
             } else {
 
-                $result = 'No tienes permisos de administrador';
+                $result = [
+                    'msg' => 'No tienes permisos de administrador',
+                    'success' => false
+                ];
+
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
@@ -130,7 +151,7 @@ class Usuario
 
         $pdo = BD::getInstance();
 
-        $result = '';
+        $result = array();
 
         try {
 
@@ -143,10 +164,18 @@ class Usuario
 
             if ($data) {
 
-                $result = 'El usuario ya existe';
-            } elseif ($this->nombre == null) {
+                $result = [
+                    'msg' => 'El usuario ya existe',
+                    'success' => false
+                ];
 
-                $result = 'El usuario no puede estar vacio';
+            } elseif ($this->nombre == null || $this->contrasenna == null) {
+
+                $result = [
+                    'msg' => 'El usuario o contraseña no puede estar vacio',
+                    'success' => false
+                ];
+
             } else {
 
                 $sql = "SELECT count(*) FROM usuario";
@@ -162,9 +191,16 @@ class Usuario
                     $stmt->bindParam(':contrasenna', $hashedPassword);
                     $stmt->execute();
 
-                    $result = 'El usuario se registro correctamente';
+                    $result = [
+                        'msg' => 'El usuario se registró correctamente',
+                        'success' => true
+                    ];
+
                 } else {
-                    $result = 'Hay un máximo de usuarios establecido por el administrador';
+                    $result = [
+                        'msg' => 'Hay un máximo de usuarios establecido por el administrador',
+                        'success' => false
+                    ];
                 }
             }
         } catch (Exception $e) {
@@ -303,11 +339,9 @@ class Usuario
             if ($numeroUsuarios < 7) {
 
                 $result = false;
-
             } else {
 
                 $result = true;
-
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);

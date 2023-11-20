@@ -84,13 +84,11 @@ if (isset($data["action"])) {
             break;
             case "update":
                 $json = json_encode(array(
-                    "success" => true,
                     "data" => $usuario->modificar()
                 ));
             break;
             case "delete":
                 $json = json_encode(array(
-                    "success" => true,
                     "data" => $usuario->eliminar()
                 ));
             break;
