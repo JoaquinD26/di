@@ -129,7 +129,7 @@ function obtenerInputValue7() {
 // });
 
 
-// Con Fetch API debido a la utilización general de la práctica, las dos funcionan correctamente.
+// Con Fetch API debido a la utilización general en la práctica, las dos funcionan correctamente.
 document.addEventListener('DOMContentLoaded', function () {
     fetch('https://cdn.jsdelivr.net/npm/flatpickr')
         .then(response => response.text())
