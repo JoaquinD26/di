@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="activarRegistro()">
     <h2>Login</h2>
     <form>
         <input id='nombre' type="text" placeholder="Username">
@@ -20,7 +20,7 @@
         <br>
         <button type="button" onclick="iniciar(document.getElementById('nombre').value, document.getElementById('contrasenna').value)">Login</button>
         <br><br>
-        <button disabled type="button" onclick="registrar(document.getElementById('nombre').value, document.getElementById('contrasenna').value)">Registrar</button>
+        <button id="registro" type="button" onclick="registrar(document.getElementById('nombre').value, document.getElementById('contrasenna').value)">Registrar</button>
     </form>
 </body>
 

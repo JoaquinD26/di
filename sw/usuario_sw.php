@@ -94,6 +94,12 @@ if (isset($data["action"])) {
                     "data" => $usuario->eliminar()
                 ));
             break;
+            case "numeroUsuarios":
+                $json = json_encode(array(
+                    "success" => true,
+                    "data" => Usuario::numeroUsuarios()
+                ));
+            break;
             
             
         }

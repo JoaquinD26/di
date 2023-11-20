@@ -22,87 +22,6 @@ class Usuario
         $this->permisos = $permisos;
     }
 
-    public function registrar()
-    {
-        // Encriptar la contraseña con bcrypt
-        $hashedPassword = password_hash($this->contrasenna, PASSWORD_BCRYPT);
-
-        $pdo = BD::getInstance();
-
-        $result = '';
-
-        try {
-
-            
-
-
-
-            // Verificar si el usuario ya existe
-            $sql = "SELECT nombre FROM usuario WHERE nombre = :nombre";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':nombre', $this->nombre);
-            $stmt->execute();
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($data) {
-
-                $result = 'El usuario ya existe';
-            } elseif ($this->nombre == null) {
-
-                $result = 'El usuario no puede estar vacio';
-            } else {
-
-                $sql = "SELECT count(*) FROM usuario";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
-                $numeroUsuarios = $stmt->fetch(PDO::FETCH_ASSOC)['count(*)'];
-
-                if ($numeroUsuarios < 7) {
-                    // Insertar el nuevo usuario en la base de datos
-                    $sql2 = "INSERT INTO usuario (nombre, contrasenna) VALUES (:nombre, :contrasenna)";
-                    $stmt = $pdo->prepare($sql2);
-                    $stmt->bindParam(':nombre', $this->nombre);
-                    $stmt->bindParam(':contrasenna', $hashedPassword);
-                    $stmt->execute();
-
-                    $result = 'El usuario se registro correctamente';
-
-                } else {
-                    $result = 'Hay un máximo de usuarios establecido por el administrador';
-                }
-            }
-
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
-        }
-
-        return $result;
-    }
-
-    public function iniciar()
-    {
-        $result2 = 'error';
-        $pdo = BD::getInstance();
-
-        try {
-
-            $sql = "SELECT contrasenna FROM usuario WHERE nombre = :nombre";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':nombre', $this->nombre);
-            $stmt->execute();
-            $hash = $stmt->fetchColumn();
-
-            if (password_verify($this->contrasenna, $hash)) {
-
-                $result2 = $hash;
-            }
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
-        }
-
-        return $result2;
-    }
-
     public static function getUser($token)
     {
         $pdo = BD::getInstance();
@@ -204,7 +123,80 @@ class Usuario
         return $result;
     }
 
+    public function registrar()
+    {
+        // Encriptar la contraseña con bcrypt
+        $hashedPassword = password_hash($this->contrasenna, PASSWORD_BCRYPT);
 
+        $pdo = BD::getInstance();
+
+        $result = '';
+
+        try {
+
+            // Verificar si el usuario ya existe
+            $sql = "SELECT nombre FROM usuario WHERE nombre = :nombre";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($data) {
+
+                $result = 'El usuario ya existe';
+            } elseif ($this->nombre == null) {
+
+                $result = 'El usuario no puede estar vacio';
+            } else {
+
+                $sql = "SELECT count(*) FROM usuario";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $numeroUsuarios = $stmt->fetch(PDO::FETCH_ASSOC)['count(*)'];
+
+                if ($numeroUsuarios < 7) {
+                    // Insertar el nuevo usuario en la base de datos
+                    $sql2 = "INSERT INTO usuario (nombre, contrasenna) VALUES (:nombre, :contrasenna)";
+                    $stmt = $pdo->prepare($sql2);
+                    $stmt->bindParam(':nombre', $this->nombre);
+                    $stmt->bindParam(':contrasenna', $hashedPassword);
+                    $stmt->execute();
+
+                    $result = 'El usuario se registro correctamente';
+                } else {
+                    $result = 'Hay un máximo de usuarios establecido por el administrador';
+                }
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
+        }
+
+        return $result;
+    }
+
+    public function iniciar()
+    {
+        $result2 = 'error';
+        $pdo = BD::getInstance();
+
+        try {
+
+            $sql = "SELECT contrasenna FROM usuario WHERE nombre = :nombre";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->execute();
+            $hash = $stmt->fetchColumn();
+
+            if (password_verify($this->contrasenna, $hash)) {
+
+                $result2 = $hash;
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
+        }
+
+        return $result2;
+    }
 
     function obtenerTokenValido()
     {
@@ -295,5 +287,31 @@ class Usuario
         }
 
         return $result3;
+    }
+
+    public static function numeroUsuarios()
+    {
+        $pdo = BD::getInstance();
+        $result = '';
+        try {
+
+            $sql = "SELECT count(*) FROM usuario";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $numeroUsuarios = $stmt->fetch(PDO::FETCH_ASSOC)['count(*)'];
+
+            if ($numeroUsuarios < 7) {
+
+                $result = false;
+
+            } else {
+
+                $result = true;
+
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
+        }
+        return $result;
     }
 }

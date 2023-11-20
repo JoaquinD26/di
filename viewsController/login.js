@@ -131,6 +131,12 @@ function activarRegistro() {
         })
         .then(function (response) {
 
+            var button = document.getElementById('registro');
+
+            if(response.data){
+                button.setAttribute('disabled', 'true');
+            }
+
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
