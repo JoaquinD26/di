@@ -116,16 +116,40 @@ function obtenerInputValue7() {
     return document.getElementById('fecha_inicio').value;
 }
 
-$(document).ready(function () {
-    flatpickr("#fecha_inicio", {
-        dateFormat: "Y-m-d", // Formato "yyyy-mm-dd"
-        altInput: true,
-        altFormat: "F j, Y",
-        locale: {
-            firstDayOfWeek: 1, // Lunes como el primer día de la semana
-        },
-    });
+// Con JQuery debido a su sencillez
+// $(document).ready(function () {
+//     flatpickr("#fecha_inicio", {
+//         dateFormat: "Y-m-d",
+//         altInput: true,
+//         altFormat: "F j, Y",
+//         locale: {
+//             firstDayOfWeek: 1,
+//         },
+//     });
+// });
+
+
+// Con Fetch API debido a la utilización general de la práctica, las dos funcionan correctamente.
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('https://cdn.jsdelivr.net/npm/flatpickr')
+        .then(response => response.text())
+        .then(scriptText => {
+            // Evaluar el código descargado
+            eval(scriptText);
+
+            // Inicializar Flatpickr u otras operaciones después de la carga del script
+            flatpickr("#fecha_inicio", {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "F j, Y",
+                locale: {
+                    firstDayOfWeek: 1,
+                },
+            });
+        })
+        .catch(error => console.error('Error al cargar el script:', error));
 });
+
 
 
 
