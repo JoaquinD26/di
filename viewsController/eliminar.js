@@ -34,9 +34,15 @@ function eliminar(clave) {
                 });
 
             } else {
+                
+                if(response.msg != null){
+                    var message = 'Hubo un error al intentar eliminar, debido a la estructura de la base de datos';
+                }else{
+                    var message = response.data.msg;
+                }
 
                 Swal.fire({
-                    title: response.data.msg,
+                    title: message,
                     icon: "error",
                     confirmButtonText: "Aceptar",
                     confirmButtonColor: '#e53935'
@@ -53,7 +59,7 @@ function eliminar(clave) {
 function confirmarEliminar(dni) {
 
     Swal.fire({
-        title: "Estás seguro?",
+        title: "¿Estás seguro?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: '#4CAF50',
@@ -121,7 +127,7 @@ function eliminarUser(clave) {
 function confirmarEliminarUser(nombre) {
     // Muestra un cuadro de diálogo con "Aceptar" y "Cancelar"
     Swal.fire({
-        title: "Estás seguro?",
+        title: "¿Estás seguro?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: '#4CAF50',

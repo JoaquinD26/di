@@ -54,7 +54,7 @@ if (isset($data["action"])) {
             
                     // Devolver el token como parte de la respuesta JSON
                     $json = json_encode(array(
-                        "msg" => 'Se inició sesión correctamente',
+                        "msg" => 'Usuario reconocido, Bienvenido '.$nombre,
                         "success" => true,
                         "data" => $token
                     ));
@@ -62,7 +62,7 @@ if (isset($data["action"])) {
                 } else {
                     // Autenticación fallida
                     $json = json_encode(array(
-                        "msg" => 'Inicio de sesión incorrecto, vuelva a intentarlo',
+                        "msg" => 'Usuario no reconocido, vuelva a intentarlo',
                         "success" => false,
                         "data" => null
                     ));

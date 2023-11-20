@@ -25,7 +25,7 @@ function iniciar(nombre, contrasenna) {
                     text: '',
                     icon: 'success',
                     confirmButtonColor: '#4CAF50',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: 'Acceder'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         localStorage.setItem("token", response.data);
@@ -88,7 +88,7 @@ function registrar(nombre, contrasenna) {
                     text: '',
                     icon: 'error',
                     confirmButtonColor: '#e53935', // Color verde
-                    confirmButtonText: 'Volver a Intentar'
+                    confirmButtonText: 'Aceptar'
                 });
             }
 
@@ -147,11 +147,11 @@ function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, n
 function cerrarSesion() {
 
     Swal.fire({
-        title: 'Sesión cerrada',
+        title: 'Su sesión se cerrará',
         text: '',
-        icon: 'success',
+        icon: 'warning',
         confirmButtonColor: '#4CAF50', // Color verde
-        confirmButtonText: 'Aceptar'
+        confirmButtonText: 'Salir'
     }).then((result) => {
         if (result.isConfirmed) {
 

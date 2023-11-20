@@ -42,7 +42,7 @@ class Usuario
         $pdo = BD::getInstance();
         try {
 
-            $sql = "SELECT nombre, token_expiracion, permisosAdmin FROM usuario WHERE token != :token";
+            $sql = "SELECT nombre, token_expiracion, permisosAdmin FROM usuario WHERE token != :token OR token is null order by token_expiracion";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':token', $token);
             $stmt->execute();
@@ -226,6 +226,7 @@ class Usuario
             if (password_verify($this->contrasenna, $hash)) {
 
                 $result2 = $hash;
+
             }
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
