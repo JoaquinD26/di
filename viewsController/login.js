@@ -133,7 +133,7 @@ function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, local
                     icon: "error",
                     title: "Tu sesión expiró o no iniciaste sesión",
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 2000,
                     willClose: () => {
                         window.location.replace("../views/login.html");
                     }

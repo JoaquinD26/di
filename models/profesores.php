@@ -3,14 +3,14 @@ require_once('../models/BD.php');
 
 class Profesor
 {
-    public $dni;
-    public $nombre;
-    public $codigo_departamento;
-    public $direccion;
-    public $localidad;
-    public $provincia;
-    public $fecha_inicio;
-    public $tokenStorage;
+    private $dni;
+    private $nombre;
+    private $codigo_departamento;
+    private $direccion;
+    private $localidad;
+    private $provincia;
+    private $fecha_inicio;
+    private $tokenStorage;
 
     // Constructor
     public function __construct($dni, $nombre, $codigo_departamento, $direccion, $localidad, $provincia, $fecha_inicio, $tokenStorage)
