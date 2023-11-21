@@ -98,16 +98,18 @@ function registrar(nombre, contrasenna) {
         });
 }
 
+// function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
+
+
+//     var tokenStorage = localStorage.getItem("token");
+
+//     verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
+
+// }
+
 function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
 
-
     var tokenStorage = localStorage.getItem("token");
-
-    verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
-
-}
-
-function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
     var url = "http://localhost/di/sw/usuario_sw.php";
     var data = {
         action: "verificar",
@@ -126,15 +128,35 @@ function verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, n
         .then(function (response) {
 
             if (!response || response.data === false) {
-                window.location.replace("../views/login.html");
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+                
+
             } else {
 
-                if (accion === 'eliminar') {
-                    confirmarEliminar(dni);
-                } else if (accion === 'insertar') {
-                    validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
-                } else if (accion === 'eliminarUser') {
-                    confirmarEliminarUser(nombreUsuario);
+                switch (accion) {
+                    case 'eliminar':
+                        confirmarEliminar(dni);
+                        break;
+
+                    case 'insertar':
+                        validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
+                        break;
+
+                    case 'eliminarUser':
+                        confirmarEliminarUser(nombreUsuario);
+                        break;
+                    default:
+                        // Manejo de casos no especificados
+                        break;
                 }
 
             }
