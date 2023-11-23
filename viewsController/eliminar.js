@@ -143,7 +143,6 @@ function eliminarUser(clave) {
 }
 
 function confirmarEliminarUser(nombre) {
-    // Muestra un cuadro de diálogo con "Aceptar" y "Cancelar"
     Swal.fire({
         title: "¿Estás seguro?",
         icon: "warning",

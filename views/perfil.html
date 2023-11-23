@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es" >
+<html lang="es">
 
 <head>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="perfil.css">
@@ -12,8 +12,14 @@
   <script type="text/javascript" src="../viewsController/modificar.js"></script>
   <script type="text/javascript" src="../viewsController/eliminar.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script>
+    // Agrega un escuchador de eventos para el evento 'focus' en la ventana actual
+    window.addEventListener('focus', function () {
+      // Realiza la recarga cuando la ventana recibe el foco
+      location.reload();
+    });
 
-
+  </script>
 
   <title>Información del Usuario</title>
 </head>
@@ -21,20 +27,20 @@
 <body onload="usuarios(), datosPerfil()">
 
   <header>
-    <h1 id="nombre"></h1>
+    <h1 id="nombre">Bienvenido</h1>
   </header>
 
   <button id="cerrarSesion" onclick="cerrarSesion()"> Cerrar Sesión <i class="fas fa-sign-out-alt"></i></button>
 
   <section id="user-info">
     <div class="info-item" id="nombre2">
-
+      Nombre
     </div>
     <div class="info-item" id="token">
-
+      Expiración Sesión
     </div>
     <div class="info-item" id="permisos">
-
+      Admin
     </div>
   </section>
 
@@ -54,7 +60,7 @@
     </table>
   </div>
   <br><br><br>
-  
+
 
   <button id="volver" onclick="window.location.replace('../views/tabla.html')"><i class="fas fa-arrow-left"></i>
     Volver</i></button>

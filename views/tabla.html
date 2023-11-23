@@ -10,6 +10,14 @@
     <script type="text/javascript" src="../viewsController/modificar.js"></script>
     <script type="text/javascript" src="../viewsController/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Agrega un escuchador de eventos para el evento 'focus' en la ventana actual
+        window.addEventListener('focus', function () {
+            // Realiza la recarga cuando la ventana recibe el foco
+            location.reload();
+        });
+
+    </script>
 
 
 
@@ -23,14 +31,15 @@
 
     <h2>Filtrar por...</h2>
 
-    <input oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder())" type="text" id="myInput"
-        placeholder="Nombre o código" value=""/>
-    <input oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder())" type="text" id="myInput2"
-        placeholder="Nombre2 o código2" value=""/>
+    <input oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder())" type="text"
+        id="myInput" placeholder="Nombre o código" value="" />
+    <input oninput="entablar('', obtenerValorInput(), obtenerValorInput2(), obtenerPlaceholder())" type="text"
+        id="myInput2" placeholder="Nombre2 o código2" value="" />
     <button id="borrarFiltrosButton" onclick="borrarFiltros()">Borrar filtros</button>
-    <button id="insertar" onclick="window.location.replace('../views/formularioI.html')"> <i class="fas fa-plus"></i> Añadir</button>
+    <button id="insertar" onclick="window.location.replace('../views/formularioI.html')"> <i class="fas fa-plus"></i>
+        Añadir</button>
     <button onclick="window.location.replace('../views/perfil.html')"><i class="fas fa-user"></i> Usuarios</button>
-    
+
     <br><br>
     <div id="contenedorTabla">
         <table id="myTable">
@@ -49,7 +58,8 @@
     <br><br>
 
     <div id="pagination">
-        <button id="primera" onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), '', obtenerPlaceholder())">
+        <button id="primera"
+            onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), '', obtenerPlaceholder())">
             &lt;&lt;
         </button>
         <button id="anterior"
@@ -65,7 +75,8 @@
             onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), parseInt(obtenerPlaceholder()), obtenerPlaceholder())">
             &gt;
         </button>
-        <button id="ultima" onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), '', obtenerPlaceholder())">
+        <button id="ultima"
+            onclick="entablar(this.id, obtenerValorInput(), obtenerValorInput2(), '', obtenerPlaceholder())">
             &gt;&gt;
         </button>
     </div>

@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="../views/formulario.css">
-    
+
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -12,7 +12,15 @@
     <script type="text/javascript" src="../viewsController/login.js"></script>
     <script type="text/javascript" src="../viewsController/insertar.js"></script>
     <script type="text/javascript" src="../viewsController/tabla.js"></script>
-    
+    <script>
+        // Agrega un escuchador de eventos para el evento 'focus' en la ventana actual
+        window.addEventListener('focus', function () {
+            // Realiza la recarga cuando la ventana recibe el foco
+            location.reload();
+        });
+
+    </script>
+
     <title>Formulario</title>
 </head>
 

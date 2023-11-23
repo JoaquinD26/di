@@ -28,8 +28,8 @@ function iniciar(nombre, contrasenna) {
                     confirmButtonText: 'Acceder'
                 }).then((result) => {
                     if (result.isConfirmed) {
+
                         localStorage.setItem("token", response.data);
-                        // Realiza la redirección o la acción que desees
                         window.location.replace("../views/tabla.html");
 
                     }
@@ -78,7 +78,7 @@ function registrar(nombre, contrasenna) {
                     title: response.data.msg,
                     text: '',
                     icon: 'success',
-                    confirmButtonColor: '#4CAF50', // Color verde
+                    confirmButtonColor: '#4CAF50',
                     confirmButtonText: 'Aceptar'
                 });
 
@@ -88,7 +88,7 @@ function registrar(nombre, contrasenna) {
                     title: response.data.msg,
                     text: '',
                     icon: 'error',
-                    confirmButtonColor: '#e53935', // Color verde
+                    confirmButtonColor: '#e53935',
                     confirmButtonText: 'Aceptar'
                 });
             }
@@ -106,7 +106,7 @@ function cerrarSesion() {
         title: 'Su sesión se cerrará',
         text: '',
         icon: 'warning',
-        confirmButtonColor: '#4CAF50', // Color verde
+        confirmButtonColor: '#4CAF50',
         confirmButtonText: 'Salir'
     }).then((result) => {
         if (result.isConfirmed) {
