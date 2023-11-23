@@ -210,12 +210,16 @@ class Profesor
 
         $numRegistrosPorPagina = 10;
 
-        $UltimaP = ceil($totalRegistros / $numRegistrosPorPagina);
+        if($totalRegistros > 0){
+            $UltimaP = ceil($totalRegistros / $numRegistrosPorPagina);
+        }else{
+            $UltimaP = 1;
+        }
 
         $result['totalRegistros'] = $totalRegistros;
         $result['numRegistrosPorPagina'] = $numRegistrosPorPagina;
         $result['ultimaPag'] = $UltimaP;
-
+       
         return $result;
     }
 

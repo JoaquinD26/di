@@ -66,6 +66,11 @@ if (isset($data["action"])) {
             break;
             case "list":
                 if (!$verificacion) {
+                    echo json_encode(array(
+                        "msg" => 'Tu sesión ha expirado o se ha cerrado sesión',
+                        "success" => false,
+                        "data" => null
+                    ));
                     exit();
                 }
                 $json = json_encode(array(
@@ -76,6 +81,11 @@ if (isset($data["action"])) {
             break;
             case "get":
                 if (!$verificacion) {
+                    echo json_encode(array(
+                        "msg" => 'Tu sesión ha expirado o se ha cerrado sesión',
+                        "success" => false,
+                        "data" => null
+                    ));
                     exit();
                 }
                 $json = json_encode(array(
@@ -86,6 +96,11 @@ if (isset($data["action"])) {
             break;
             case "update":
                 if (!$verificacion) {
+                    echo json_encode(array(
+                        "msg" => 'Tu sesión ha expirado o se ha cerrado sesión',
+                        "success" => false,
+                        "data" => null
+                    ));
                     exit();
                 }
                 $json = json_encode(array(
@@ -94,6 +109,11 @@ if (isset($data["action"])) {
             break;
             case "delete":
                 if (!$verificacion) {
+                    echo json_encode(array(
+                        "msg" => 'Tu sesión ha expirado o se ha cerrado sesión',
+                        "success" => false,
+                        "data" => null
+                    ));
                     exit();
                 }
                 $json = json_encode(array(

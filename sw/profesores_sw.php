@@ -15,6 +15,15 @@ $usuario = new Usuario( '', '',$tokenStorage, '');
 $verificacion = $usuario->verificarTokenEnBD('jomeishion');
 
 if (!$verificacion) {
+    echo json_encode(array(
+        "msg" => 'Tu sesión ha expirado o se ha cerrado sesión',
+        "success" => false,
+        "data" => array("Dregistros" => 0,
+        "pagina" => 1),
+        "pagina" => array("totalRegistros" => 0,
+        "numRegistrosPorPagina" => 10,
+        "ultimaPag" => 1)
+    ));
     exit();
 }
 

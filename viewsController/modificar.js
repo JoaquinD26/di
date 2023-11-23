@@ -23,6 +23,20 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
         })
         .then(function (response) {
 
+            if(!response.success){
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+
+            }
+
             if (response.data.success) {
 
                 Swal.fire({
@@ -67,15 +81,6 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                timer: 2000,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 }
 
@@ -158,6 +163,20 @@ function modificarUser(clave, campo) {
         })
         .then(function (response) {
 
+            if(!response.success){
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+
+            }
+
             if (response.data.success) {
 
                 Swal.fire({
@@ -190,15 +209,6 @@ function modificarUser(clave, campo) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                timer: 2000,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 }
 

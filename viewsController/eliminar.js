@@ -20,6 +20,20 @@ function eliminar(clave) {
         })
         .then(function (response) {
 
+            if(!response.success){
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+
+            }
+
             if (response.data.success) {
 
                 Swal.fire({
@@ -53,15 +67,6 @@ function eliminar(clave) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                timer: 2000,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 }
 
@@ -104,6 +109,20 @@ function eliminarUser(clave) {
         })
         .then(function (response) {
 
+            if(!response.success){
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+
+            }
+
             if (response.data.success) {
 
                 Swal.fire({
@@ -130,15 +149,6 @@ function eliminarUser(clave) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                timer: 2000,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 }
 

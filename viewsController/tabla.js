@@ -23,6 +23,19 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
             return res.json();
         })
         .then(function (response) {
+            if(!response.success){
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+
+            }
 
 
             var table = document.getElementById("myTable");
@@ -43,6 +56,15 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
 
             var lastPageNumber = response.pagina.ultimaPag;
             var totalRegistros = response.pagina.totalRegistros;
+
+            // if(lastPageNumber = 1){
+            //     Swal.fire({
+            //         icon: "error",
+            //         title: "No se encontraron resultados",
+            //         showConfirmButton: false,
+            //         timer: 1000,
+            //     });
+            // }
 
             infoBox.innerText = `Última página: ${lastPageNumber}, Registros: ${totalRegistros}`;
 
@@ -110,15 +132,6 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                timer: 2000,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 
 }

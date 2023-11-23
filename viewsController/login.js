@@ -22,18 +22,16 @@ function iniciar(nombre, contrasenna) {
 
                 Swal.fire({
                     title: response.msg,
-                    text: '',
                     icon: 'success',
-                    confirmButtonColor: '#4CAF50',
-                    confirmButtonText: 'Acceder'
-                }).then((result) => {
-                    if (result.isConfirmed) {
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
 
                         localStorage.setItem("token", response.data);
                         window.location.replace("../views/tabla.html");
-
                     }
                 });
+
             } else {
 
                 Swal.fire({

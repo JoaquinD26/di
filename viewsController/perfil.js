@@ -55,6 +55,20 @@ function usuarios() {
             return res.json();
         })
         .then(function (response) {
+
+            if(!response.success){
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
+                });
+
+            }
  
             var table = document.getElementById("myTable");
 
@@ -119,14 +133,6 @@ function usuarios() {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 }
 

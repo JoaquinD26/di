@@ -62,38 +62,22 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
 
             } else {
 
-                var clean_message = 'response.data';
-                var prefixes = [
-                    "SQLSTATE[45000]: <<Unknown error>>: 1644 ",
-                    "SQLSTATE[23000]: Integrity constraint violation: 1062 "
-                ];
-
-                for (var prefix of prefixes) {
-                    if (response.msg.includes(prefix)) {
-                        clean_message = response.msg.replace(prefix, '');
-                    }
-                }
 
                 Swal.fire({
-                    title: clean_message,
                     icon: "error",
-                    confirmButtonText: "Aceptar",
-                    confirmButtonColor: '#e53935'
+                    title: "Tu sesión expiró o no iniciaste sesión",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    willClose: () => {
+                        window.location.replace("../views/login.html");
+                    }
                 });
+
             }
 
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
-            Swal.fire({
-                icon: "error",
-                title: "Tu sesión expiró o no iniciaste sesión",
-                showConfirmButton: false,
-                timer: 2000,
-                willClose: () => {
-                    window.location.replace("../views/login.html");
-                }
-            });
         });
 }
 
