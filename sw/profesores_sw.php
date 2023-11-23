@@ -1,10 +1,24 @@
 <?php
 require_once('../models/profesores.php');
+require_once('../models/usuario.php');
 header('Content-Type: application/json; charset=utf-8');
+
+
 
 
 $data = json_decode(file_get_contents('php://input'), true);
 $action = isset($data["action"]) ? $data["action"] : null;
+
+
+$tokenStorage = isset($data["tokenStorage"]) ? $data["tokenStorage"] : null;
+$usuario = new Usuario( '', '',$tokenStorage, '');
+$verificacion = $usuario->verificarTokenEnBD('jomeishion');
+
+if (!$verificacion) {
+    exit();
+}
+
+
 $departamento = isset($data["departamento"]) ? $data["departamento"] : null;
 
 $filtros = isset($data["filtros"]) ? $data["filtros"] : null;
@@ -20,53 +34,51 @@ $localidad = isset($data["localidad"]) ? $data["localidad"] : null;
 $provincia = isset($data["provincia"]) ? $data["provincia"] : null;
 $fechaInicio = isset($data["fecha_inicio"]) ? $data["fecha_inicio"] : null;
 
-$tokenStorage = isset($data["tokenStorage"]) ? $data["tokenStorage"] : null;
-
 $profesor = new Profesor($dni, $nombre, $depto, $direccion, $localidad, $provincia, $fechaInicio, $tokenStorage);
 
 $json = json_encode(array());
-try {
 
-    switch ($action) {
-        case "get":
-            $json = json_encode(array(
-                "msg" => "Listado de profesores del departamento",
-                "success" => true,
-                "data" => Profesor::getProfesoresDpto($departamento)
-            ));
-            break;
-        case "list":
-            $json = json_encode(array(
-                "msg" => "Listado de profesores",
-                "success" => true,
-                "data" => Profesor::getProfesores($opcion, $filtros, $filtros2, $pagina),
-                "pagina" => Profesor::getInfo($filtros, $filtros2)
-            ));
-            break;
-        case "insert":
-            $json = json_encode(array(
-                "msg" => "Se ha añadido un nuevo profesor",
-                "success" => true,
-                "data"=> $profesor->insertar()
-            ));
-            break;
-        case "update":
-            $json = json_encode(array(
-                "data" => $profesor->modificar()
-            ));
-            break;
-        case "delete":
-            $json = json_encode(array(
-                "data" => $profesor->eliminar()
-            ));
-            break;
+    try {
+
+        switch ($action) {
+            case "get":
+                $json = json_encode(array(
+                    "msg" => "Listado de profesores del departamento",
+                    "success" => true,
+                    "data" => Profesor::getProfesoresDpto($departamento)
+                ));
+                break;
+            case "list":
+                $json = json_encode(array(
+                    "msg" => "Listado de profesores",
+                    "success" => true,
+                    "data" => Profesor::getProfesores($opcion, $filtros, $filtros2, $pagina),
+                    "pagina" => Profesor::getInfo($filtros, $filtros2)
+                ));
+                break;
+            case "insert":
+                $json = json_encode(array(
+                    "msg" => "Se ha añadido un nuevo profesor",
+                    "success" => true,
+                    "data" => $profesor->insertar()
+                ));
+                break;
+            case "update":
+                $json = json_encode(array(
+                    "data" => $profesor->modificar()
+                ));
+                break;
+            case "delete":
+                $json = json_encode(array(
+                    "data" => $profesor->eliminar()
+                ));
+                break;
         }
-} catch (Exception $exception) {
-    $json = json_encode(array(
-        "msg" => $exception->getMessage(),
-        "success" => false,
-        "data" => array()
-    ));
-}
-echo $json;
-?>
+    } catch (Exception $exception) {
+        $json = json_encode(array(
+            "msg" => $exception->getMessage(),
+            "success" => false,
+            "data" => array()
+        ));
+    }
+    echo $json;

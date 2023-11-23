@@ -1,12 +1,16 @@
 function entablar(opcion, filtros, filtros2, pagina, paginaA) {
-    cargarPagina();
+
+    var tokenStorage = localStorage.getItem("token");
+
     var url = "http://localhost/di/sw/profesores_sw.php";
     var data = {
         action: "list",
         opcion: opcion,
         filtros: filtros,
         filtros2: filtros2,
-        pagina: pagina
+        pagina: pagina,
+        tokenStorage: tokenStorage
+
     };
     fetch(url, {
         method: "POST",
@@ -63,32 +67,32 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 var tdFechaInicio = document.createElement('td');
                 var tdButtonEditar = document.createElement('td');
                 var tdButtonEliminar = document.createElement('td');
-            
+
                 tdNombre.textContent = response.data.Dregistros[i].NOMBRE;
                 tdDepartamento.textContent = response.data.Dregistros[i].ID_DEPARTAMENTO;
                 tdDireccion.textContent = response.data.Dregistros[i].DIRECCION;
                 tdLocalidad.textContent = response.data.Dregistros[i].LOCALIDAD;
                 tdProvincia.textContent = response.data.Dregistros[i].PROVINCIA;
                 tdFechaInicio.textContent = response.data.Dregistros[i].FECHA_INGRESO;
-            
+
                 var editarButton = document.createElement('button');
                 var editarIcon = document.createElement('i');
                 editarIcon.classList.add('fas', 'fa-pencil-alt');
                 editarButton.appendChild(editarIcon);
-                editarButton.setAttribute('onclick', 
-                "toggleEditMode(this)");
+                editarButton.setAttribute('onclick',
+                    "toggleEditMode(this)");
 
-            
+
                 var eliminarButton = document.createElement('button');
                 var eliminarIcon = document.createElement('i');
                 eliminarIcon.classList.add('fas', 'fa-trash');
                 eliminarButton.appendChild(eliminarIcon);
                 eliminarButton.setAttribute('id', 'eliminar');
-                eliminarButton.setAttribute('onclick', "cargarPagina('eliminar','',this.parentNode.parentNode.getAttribute('value'));");
-            
+                eliminarButton.setAttribute('onclick', "confirmarEliminar(this.parentNode.parentNode.getAttribute('value'));");
+
                 tdButtonEditar.appendChild(editarButton);
                 tdButtonEliminar.appendChild(eliminarButton);
-            
+
                 tr.appendChild(tdNombre);
                 tr.appendChild(tdDepartamento);
                 tr.appendChild(tdDireccion);
@@ -98,14 +102,23 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
                 tr.appendChild(tdButtonEditar);
                 tr.appendChild(tdButtonEliminar);
 
-            
+
                 table.appendChild(tr);
             }
-            
+
 
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 
 }

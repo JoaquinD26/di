@@ -85,6 +85,15 @@ function insertar(campo1, campo2, campo3, campo4, campo5, campo6, campo7) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 }
 

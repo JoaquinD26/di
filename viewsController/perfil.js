@@ -99,7 +99,7 @@ function usuarios() {
                 eliminarIcon.classList.add('fas', 'fa-trash');
                 eliminarButton.appendChild(eliminarIcon);
                 eliminarButton.setAttribute('id', 'eliminar');
-                eliminarButton.setAttribute('onclick', "cargarPagina('eliminarUser',this.parentNode.parentNode.getAttribute('value'));");
+                eliminarButton.setAttribute('onclick', "confirmarEliminarUser(this.parentNode.parentNode.getAttribute('value'));");
 
                 tdButtonEditar.appendChild(editarButton);
                 tdButtonEliminar.appendChild(eliminarButton);
@@ -119,6 +119,14 @@ function usuarios() {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 }
 

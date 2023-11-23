@@ -34,10 +34,10 @@ function eliminar(clave) {
                 });
 
             } else {
-                
-                if(response.msg != null){
+
+                if (response.msg != null) {
                     var message = 'Hubo un error al intentar eliminar, debido a la estructura de la base de datos';
-                }else{
+                } else {
                     var message = response.data.msg;
                 }
 
@@ -53,6 +53,15 @@ function eliminar(clave) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 }
 
@@ -94,7 +103,7 @@ function eliminarUser(clave) {
             return res.json();
         })
         .then(function (response) {
-           
+
             if (response.data.success) {
 
                 Swal.fire({
@@ -121,6 +130,15 @@ function eliminarUser(clave) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 }
 

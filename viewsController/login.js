@@ -51,6 +51,7 @@ function iniciar(nombre, contrasenna) {
 }
 
 function registrar(nombre, contrasenna) {
+    desactivarRegistro();
     var url = "http://localhost/di/sw/usuario_sw.php";
     var data = {
         action: "registrar",
@@ -98,73 +99,6 @@ function registrar(nombre, contrasenna) {
         });
 }
 
-// function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
-
-
-//     var tokenStorage = localStorage.getItem("token");
-
-//     verificarTokenEnServicioWeb(accion, nombreUsuario, tokenStorage, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
-
-// }
-
-function cargarPagina(accion, nombreUsuario, dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio) {
-
-    var tokenStorage = localStorage.getItem("token");
-    var url = "http://localhost/di/sw/usuario_sw.php";
-    var data = {
-        action: "verificar",
-        tokenStorage: tokenStorage
-    };
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function (response) {
-
-            if (!response || response.data === false) {
-
-                Swal.fire({
-                    icon: "error",
-                    title: "Tu sesión expiró o no iniciaste sesión",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    willClose: () => {
-                        window.location.replace("../views/login.html");
-                    }
-                });
-                
-
-            } else {
-
-                switch (accion) {
-                    case 'eliminar':
-                        confirmarEliminar(dni);
-                        break;
-
-                    case 'insertar':
-                        validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
-                        break;
-
-                    case 'eliminarUser':
-                        confirmarEliminarUser(nombreUsuario);
-                        break;
-                    default:
-                        // Manejo de casos no especificados
-                        break;
-                }
-
-            }
-        })
-        .catch(function (error) {
-            console.error('Error al procesar la solicitud:', error);
-        });
-}
 
 function cerrarSesion() {
 
@@ -185,7 +119,7 @@ function cerrarSesion() {
 
 }
 
-function activarRegistro() {
+function desactivarRegistro() {
 
     var url = "http://localhost/di/sw/usuario_sw.php";
     var data = {

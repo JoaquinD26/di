@@ -14,7 +14,7 @@ class Usuario
     private $tokenStorage;
     private $permisos;
 
-    public function __construct($nombre, $contrasenna, $tokenStorage, $permisos)
+    public function __construct($nombre=null, $contrasenna=null, $tokenStorage=null, $permisos=null)
     {
         $this->nombre = $nombre;
         $this->contrasenna = $contrasenna;

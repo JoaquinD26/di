@@ -67,11 +67,19 @@ function modificar(clave, campo2, campo3, campo4, campo5, campo6) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 }
 
 function toggleEditMode(button) {
-    cargarPagina();
     var tr = button.parentNode.parentNode;
     var tds = tr.getElementsByTagName('td');
     var isEditMode = tr.classList.contains('editMode');
@@ -182,12 +190,20 @@ function modificarUser(clave, campo) {
         })
         .catch(function (error) {
             console.error('Error al procesar la solicitud:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Tu sesión expiró o no iniciaste sesión",
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                    window.location.replace("../views/login.html");
+                }
+            });
         });
 }
 
 
 function toggleEditModeUser(button) {
-    cargarPagina();
     var tr = button.parentNode.parentNode;
     var tds = tr.getElementsByTagName('td');
     var isEditMode = tr.classList.contains('editMode');

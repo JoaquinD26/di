@@ -9,8 +9,11 @@ $nombre = isset($data["nombre"]) ? $data["nombre"] : null;
 $contrasenna = isset($data["contrasenna"]) ? $data["contrasenna"] : null;
 $tokenStorage = isset($data["tokenStorage"]) ? $data["tokenStorage"] : null;
 $permisos = isset($data["permisos"]) ? $data["permisos"] : null;
-
+$tokenStorage = isset($data["tokenStorage"]) ? $data["tokenStorage"] : null;
 $usuario = new Usuario($nombre, $contrasenna, $tokenStorage, $permisos);
+$verificacion = $usuario->verificarTokenEnBD('jomeishion');
+
+
 
 if (isset($data["action"])) {
     $action = $data["action"];
@@ -23,13 +26,6 @@ if (isset($data["action"])) {
                     "msg"=>'Se ha registrado correctamente',
                     "success"=>true,
                     "data"=> $usuario->registrar()
-                ));
-            break;
-            case "verificar":
-                $json = json_encode(array(
-                    "msg"=>'Verificación correcta',
-                    "success"=>true,
-                    "data"=> $usuario->verificarTokenEnBD('jomeishion')
                 ));
             break;
             case "iniciar":
@@ -69,6 +65,9 @@ if (isset($data["action"])) {
                 }
             break;
             case "list":
+                if (!$verificacion) {
+                    exit();
+                }
                 $json = json_encode(array(
                     "msg" => "Listado de Usuarios",
                     "success" => true,
@@ -76,6 +75,9 @@ if (isset($data["action"])) {
                 ));
             break;
             case "get":
+                if (!$verificacion) {
+                    exit();
+                }
                 $json = json_encode(array(
                     "msg" => "Listado de Usuarios",
                     "success" => true,
@@ -83,11 +85,17 @@ if (isset($data["action"])) {
                 ));
             break;
             case "update":
+                if (!$verificacion) {
+                    exit();
+                }
                 $json = json_encode(array(
                     "data" => $usuario->modificar()
                 ));
             break;
             case "delete":
+                if (!$verificacion) {
+                    exit();
+                }
                 $json = json_encode(array(
                     "data" => $usuario->eliminar()
                 ));
