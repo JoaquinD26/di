@@ -49,6 +49,16 @@ button {
     border: none;
 }
 
+button:disabled{
+    background-color: #596f64; 
+
+} 
+
+button:disabled:hover{
+    background-color: #596f64; 
+
+} 
+
 button:hover {
     background-color: #00a508; /* Verde ligeramente más oscuro al pasar el mouse */
   }

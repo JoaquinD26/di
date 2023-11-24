@@ -73,12 +73,13 @@ function eliminar(clave) {
 function confirmarEliminar(dni) {
 
     Swal.fire({
-        title: "¿Estás seguro?",
+        title: "¿Estás seguro?, se borrará el profesor con el dni, " + dni,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: '#4CAF50',
         cancelButtonColor: "#e53935",
-        confirmButtonText: "Si, lo quiero eliminar"
+        confirmButtonText: "Si, lo quiero eliminar",
+        cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
             eliminar(dni);
@@ -154,12 +155,13 @@ function eliminarUser(clave) {
 
 function confirmarEliminarUser(nombre) {
     Swal.fire({
-        title: "¿Estás seguro?",
+        title: "¿Estás seguro de querer eliminar a " + nombre + "?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: '#4CAF50',
         cancelButtonColor: "#e53935",
-        confirmButtonText: "Si, lo quiero eliminar"
+        confirmButtonText: "Si, lo quiero eliminar",
+        cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
             eliminarUser(nombre);

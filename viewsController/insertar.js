@@ -156,7 +156,21 @@ function validarDatos(dni, nombre, dpto, direccion, localidad, provincia, fecha_
             confirmButtonColor: '#e53935'
         });
     } else {
-        insertar(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
+        Swal.fire({
+            title: "¿Estás seguro de querer insertar?, después no se podrá editar el dni, asegurese de que esté bien.",
+            text: dni,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#4CAF50',
+            cancelButtonColor: "#e53935",
+            confirmButtonText: "Si, lo quiero insertar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                insertar(dni, nombre, dpto, direccion, localidad, provincia, fecha_inicio);
+            }
+        });
+        
     }
 }
 

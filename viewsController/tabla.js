@@ -167,9 +167,9 @@ function paginaActual(pag, none) {
     var input = document.getElementById('InputPage');
     input.placeholder = '';
 
-    var tiempoEspera = 1000; // Establece el tiempo de espera en 5 segundos (puedes ajustar esto según sea necesario)
+    var tiempoEspera = 1000;
     var temporizador;
-    var tiempoEsperaClic = 10000; // Establece el tiempo de espera para el clic en 10 segundos (puedes ajustar esto según sea necesario)
+    var tiempoEsperaClic = 1000;
     var clickTimer;
 
     if (pag !== '') {
