@@ -57,15 +57,6 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
             var lastPageNumber = response.pagina.ultimaPag;
             var totalRegistros = response.pagina.totalRegistros;
 
-            // if(lastPageNumber = 1){
-            //     Swal.fire({
-            //         icon: "error",
-            //         title: "No se encontraron resultados",
-            //         showConfirmButton: false,
-            //         timer: 1000,
-            //     });
-            // }
-
             infoBox.innerText = `Última página: ${lastPageNumber}, Registros: ${totalRegistros}`;
 
             var comment = document.createElement('p');
@@ -76,6 +67,15 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
             var input = document.getElementById('InputPage');
             input.style.pointerEvents = 'none';
             paginaActual(response.data.pagina, paginaA);
+
+            if(response.data.Dregistros.length == 0){
+                Swal.fire({
+                    icon: "error",
+                    title: "No se encontraron resultados",
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+            }
 
             for (var i = 0; i < response.data.Dregistros.length; i++) {
                 var tr = document.createElement('tr');
