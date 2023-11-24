@@ -20,17 +20,20 @@ function iniciar(nombre, contrasenna) {
 
             if (response.success === true) {
 
+                localStorage.setItem("token", response.data);
+
                 Swal.fire({
                     title: response.msg,
                     icon: 'success',
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 1000,
                     willClose: () => {
 
-                        localStorage.setItem("token", response.data);
                         window.location.replace("../views/tabla.html");
+
                     }
                 });
+
 
             } else {
 
