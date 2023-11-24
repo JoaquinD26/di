@@ -1,5 +1,5 @@
 <?php
-require_once('../models/usuario.php');
+require_once('../models/Usuario.php');
 header('Content-Type: application/json; charset=utf-8');
 
 $data = json_decode(file_get_contents('php://input'), true);

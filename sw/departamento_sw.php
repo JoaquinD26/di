@@ -1,6 +1,6 @@
 <?php
 
-require_once('../models/departamento.php');
+require_once('../models/Departamento.php');
 header('Content-Type: application/json; charset=utf-8');
 
 

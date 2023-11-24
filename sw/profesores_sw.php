@@ -1,6 +1,6 @@
 <?php
-require_once('../models/profesores.php');
-require_once('../models/usuario.php');
+require_once('../models/Profesores.php');
+require_once('../models/Usuario.php');
 header('Content-Type: application/json; charset=utf-8');
 
 
