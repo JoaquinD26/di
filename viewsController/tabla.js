@@ -79,8 +79,9 @@ function entablar(opcion, filtros, filtros2, pagina, paginaA) {
 
             for (var i = 0; i < response.data.Dregistros.length; i++) {
                 var tr = document.createElement('tr');
-                tr.setAttribute('id', [i]);
+                
                 tr.setAttribute('value', response.data.Dregistros[i].DNI);
+
                 var tdNombre = document.createElement('td');
                 var tdDepartamento = document.createElement('td');
                 var tdDireccion = document.createElement('td');

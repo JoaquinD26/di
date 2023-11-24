@@ -24,7 +24,7 @@ function iniciar(nombre, contrasenna) {
                     title: response.msg,
                     icon: 'success',
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 1500,
                     willClose: () => {
 
                         localStorage.setItem("token", response.data);
